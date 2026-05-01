@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ### Running the Project
 
-After installing dependencies, execute the project:
+After installing dependencies, **select the virtual environment as python interpreter** as Jupyter kernel and execute the project:
 
 ```bash
 python main.py
