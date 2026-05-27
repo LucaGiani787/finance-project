@@ -232,7 +232,76 @@ Alcuni esempi sono:
     \end{subfigure}
 \end{figure}
 
-\section{Statistiche Descrittive}
+\bigskip
+
+\section{Grafici diagnostici}
+Di seguito, l'analisi dei rendimenti dei sei titoli che si basa sull'utilizzo di grafici a tre sezioni:
+\begin{itemize}
+    \item \textbf{Istogramma con stima della densità kernel (KDE)} 
+    \item \textbf{Boxplot}
+    \item \textbf{Q-Q Plot}
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NVDA_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (NVDA)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/MSFT_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (MSFT)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/XOM_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (XOM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NEE_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (NEE)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/GM_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (GM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/TSLA_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (TSLA)}
+\end{figure}
+
+
+\subsection{Dispersione dei Rendimenti}
+Si notano \textbf{ampie differenze} nella dispersione dei rendimenti dei vari titoli:
+\begin{itemize}
+    \item \textbf{Maggiore dispersione:} (\textbf{NVDA} e \textbf{TSLA}). I loro istogrammi appaiono più schiacciati e allargati, con un picco di densità intorno a 16. Il range dei rendimenti è maggiormente esteso rispetto agli altri titoli, superando anche la soglia del $\pm 20\%$, il che si traduce in maggior volatilità e rischio.
+    \item \textbf{Minore dispersione:} (\textbf{MSFT}, \textbf{NEE} e \textbf{XOM}). I grafici mostrano una forte concentrazione dei dati attorno allo zero. Gli istogrammi sono stretti e alti (con picchi di densità superiori a 30 per MSFT e NEE), con rendimenti ordinari racchiusi principalmente nel range $\pm 5\%$.
+    \item \textbf{Dispersione intermedia:} Il titolo \textbf{GM} mostra una variabilità moderata, posizionandosi come via di mezzo, sebbene presenti code che si allungano comunque verso picchi del $\pm 15\%$.
+\end{itemize}
+
+\subsection{Analisi della Normalità}
+Dai grafici, \textbf{nessuno dei titoli è distribuito normalmente}. Tutti gli asset manifestano le proprietà tipiche delle serie storiche finanziarie, ovvero leptocurtosi e code pesanti (\textit{fat tails}):
+\begin{itemize}
+    \item \textbf{Effetto Leptocurtico:} Nei pannelli dedicati alla densità (sinistra), la linea della densità reale (KDE) mostra un picco centrale molto più elevato e appuntito rispetto alla curva tratteggiata della Normale Teorica. Ciò indica un netto eccesso di rendimenti prossimi allo zero.
+    \item \textbf{Code Pesanti (Fat Tails):} Nei \textbf{Q-Q Plot} (destra), i punti campionari blu non seguono la retta di riferimento teorica rossa. Al contrario, disegnano una marcata \textbf{forma a ``S''}, deviando verso il basso nella coda sinistra e verso l'alto nella coda destra. Questo comportamento grafico certifica che gli shock di mercato (rendimenti estremi) hanno una frequenza di accadimento molto superiore rispetto a quanto previsto da una Gaussiana.
+\end{itemize}
+
+\subsection{Presenza di Outliers}
+\textbf{Si rileva una presenza massiccia di outlier in tutti i titoli analizzati}. Tale fenomeno è visibile sia nei singoli punti oltre i baffi dei boxplot, sia nelle estremità dei Q-Q Plot.
+
+\begin{itemize} 
+    \item Gli outlier sono distribuiti in modo fitto sia sopra il baffo superiore (rendimenti positivi anomali) sia sotto il baffo inferiore (rendimenti negativi anomali).
+    \item I titoli che registrano anomalie più distanti dallo zero, superando i valori del $\pm 15\% / 20\%$, sono NVDA e TSLA.
+\end{itemize}
 
 
 
