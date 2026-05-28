@@ -303,7 +303,54 @@ Dai grafici, \textbf{nessuno dei titoli è distribuito normalmente}. Tutti gli a
     \item I titoli che registrano anomalie più distanti dallo zero, superando i valori del $\pm 15\% / 20\%$, sono NVDA e TSLA.
 \end{itemize}
 
+\section{Analisi Univariata}
+Sono state calcolate le statistiche descrittive per ciascun titolo, come mostrato nella tabella seguente:
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/Univariate_Analysis.png}
+    \caption{Statistiche descrittive dei rendimenti}
+\end{figure}
+
+\subsection{Rendimento Annualizzato}
+Dall'analisi della \textbf{Media Annualizzata} dei rendimenti, si identificano:
+\begin{itemize}
+    \item \textbf{Rendimento più alto:} \textbf{NVDA} registra una media annualizzata del \textbf{0.525829}.
+    \item \textbf{Rendimento più basso:} \textbf{GM} mostra una media più piccola, pari al \textbf{0.104971}.
+\end{itemize}
+
+\subsection{Volatilità Annualizzata}
+Dall'analisi della \textbf{Deviazione Standard Annualizzata} dei rendimenti, si identificano:
+\begin{itemize}
+    \item \textbf{Rischio più alto:} \textbf{TSLA} (Tesla) presenta il valore massimo con il (0.588368). Si conferma un titolo caratterizzato da forti oscillazioni e rischio elevato, come visto dal grafico dei rendimenti.
+    \item \textbf{Rischio più basso:} \textbf{NEE} (NextEra Energy) registra il valore minimo con il (0.253141).
+\end{itemize}
+
+\subsection{Distanza dalla Normale}
+Tramite il valore della distanza dalla normale, calcolato come la distanza euclidea utilizzando come coordinate la \textbf{skewness} e la \textbf{curtosi in eccesso}, è possibile identificare:
+\begin{itemize}
+    \item \textbf{Distribuzione più vicina alla Normale:} \textbf{TSLA} presenta il valore più basso di distanza (\textbf{4.278580}). Nonostante la sua alta volatilità, la distribuzione dei suoi rendimenti segue una forma più simmetrica e vicina alla curva gaussiana standard (seppur con code pesanti) rispetto agli altri titoli.
+    \item \textbf{Distribuzione più lontana dalla Normale:} \textbf{NEE} registra il valore più alto di distanza (\textbf{9.585131}). Questo scostamento è guidato da una forte asimmetria negativa ($-0.532201$) e da un'elevata curtosi in eccesso ($9.570345$), segnale di una distribuzione caratterizzata da una concentrazione di rendimenti stabili vicini alla media, ma interrotti da rari eventi negativi di grande intensità.
+\end{itemize}
+
+\subsection{Evoluzione Temporale di media e deviazione standard}
+La media e la deviazione standard dei rendimenti sono stati calcolati su finestre mobili di 1 anno. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{./images/moving_averages_volatility.png}
+    \caption{Rendimento e Volatilità nel tempo}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Instabilità dei Rendimenti:} I rendimenti oscillano attorno allo zero. Si evidenziano:
+        \begin{itemize}
+            \item[-] \textbf{TSLA} mostra un picco eccezionale tra il 2020 e il 2021 (superando quota 2.0), seguito da una correzione altrettanto marcata sotto lo zero nel 2023. 
+            \item[-] \textbf{NVDA} evidenzia invece un trend di picchi ricorrenti e robusti, in particolare nel 2021 e nel 2024.
+        \end{itemize}
+    \item \textbf{Shock di Mercato (2020):} All'inizio del 2020 si nota un'impennata simultanea della deviazione standard per tutti i titoli in esame, in corrispondenza alla pandemia di COVID-19.
+    \item \textbf{Gerarchia della Volatilità:} La linea associata a \textbf{TSLA} (colore viola) rimane quasi stabilmente la più elevata per l'intero orizzonte temporale. Al contrario, \textbf{NEE} (linea verde) e \textbf{MSFT} (linea arancione) mantengono costantemente i profili più bassi e schiacciati verso il fondo del grafico.
+\end{itemize}
 
 \chapter{Previsione}
 
