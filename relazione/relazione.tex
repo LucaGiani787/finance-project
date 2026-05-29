@@ -352,6 +352,43 @@ La media e la deviazione standard dei rendimenti sono stati calcolati su finestr
     \item \textbf{Gerarchia della Volatilità:} La linea associata a \textbf{TSLA} (colore viola) rimane quasi stabilmente la più elevata per l'intero orizzonte temporale. Al contrario, \textbf{NEE} (linea verde) e \textbf{MSFT} (linea arancione) mantengono costantemente i profili più bassi e schiacciati verso il fondo del grafico.
 \end{itemize}
 
+\section{Matrice di Correlazione}
+
+Sulla base della matrice di correlazione dei rendimenti mensili, si identificano le seguenti relazioni chiave tra i titoli:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/correlation_matrix.png}
+    \caption{Matrice di Correlazione dei Rendimenti Mensili}
+\end{figure}
+
+\subsection{Valori Estremi (Massimi e Minimi)}
+\begin{itemize}
+    \item \textbf{Titoli più correlati:} \textbf{MSFT} (Microsoft) e \textbf{NVDA} (NVIDIA) presentano il coefficiente di correlazione più elevato della matrice, indicando una forte coerenza di movimento:
+    \[
+    \rho_{\text{MSFT, NVDA}} = 0.639373
+    \]
+    
+    \item \textbf{Titoli meno correlati:} \textbf{NEE} (NextEra Energy) e \textbf{XOM} (ExxonMobil) mostrano la correlazione più bassa e allo stesso tempo anche negativa, indicando una sostanziale indipendenza lineare:
+    \[
+    \rho_{\text{NEE, XOM}} = -0.016391
+    \]
+\end{itemize}
+
+\subsection{Altre Correlazioni}
+Si evidenziano ulteriori relazioni:
+
+\begin{itemize}
+    \item \textbf{GM e XOM ($\rho \approx 0.43$):} Legame positivo medio-alto tra il settore automobilistico tradizionale e quello petrolifero.
+    
+    \item \textbf{MSFT e TSLA ($\rho \approx 0.40$):} Relazione positiva media guidata dal fatto che TSLA rappresenta anche un titolo tecnologico.
+    
+    \item \textbf{NVDA e TSLA ($\rho \approx 0.33$):} Per lo stesso motivo, è presente una relazione positiva media anche tra questi due titoli.
+    
+    \item \textbf{NEE:} Mostra correlazioni basse con tutti gli asset ($\rho \le 0.24$).
+\end{itemize}
+
+
 \chapter{Previsione}
 
 \section{Modello ARIMA}
