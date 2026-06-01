@@ -1,0 +1,485 @@
+\documentclass[11pt, a4paper]{report} % Classe: report (per capitoli) o article
+
+% Pacchetti fondamentali
+\usepackage[utf8]{inputenc} % Codifica caratteri
+\usepackage[T1]{fontenc}    % Codifica font
+\usepackage[italian]{babel} % Lingua
+\usepackage{graphicx}       % Inserimento immagini
+\usepackage{amsmath}        % Formule matematiche
+\usepackage{hyperref} 
+\usepackage{subcaption}
+\usepackage{geometry}       % Margini
+\usepackage{float}
+\geometry{a4paper, margin=1in}
+\usepackage{ragged2e}
+\RaggedRight                % Rende tutto il documento allineato a sinistra
+
+
+% Dati della relazione
+\title{Relazione Progetto Business Intelligence Per i Servizi Finanziari 25/26}
+\author{Luca Giani [909374]}
+\date{\today}
+\begin{document}
+
+\maketitle % Crea il frontespizio
+\tableofcontents % Indice automatico
+
+\chapter{Introduzione}
+
+\section{Titoli scelti}
+
+I 6 titoli appartenenti all'indice S\&P 500 scelti per l'analisi sono stati:
+\begin{enumerate}
+    \item Settore Tecnologico: 
+    \begin{itemize}
+        \item NVIDIA (NVDA): leader nel settore dei semiconduttori e dell'intelligenza artificiale, con una forte crescita negli ultimi anni. È stata scelta visto il suo ruolo chiave nel'AI che è un settore in forte espansione, visto il rally che ha avuto negli ultimi anni e la recente notizia di 1 Trilione di ricavi cumulativi entro la fine del 2027.
+        \item Microsoft (MSFT): gigante tecnologico con una vasta gamma di prodotti e servizi, tra cui software, cloud computing e intelligenza artificiale. È stato scelto proprio per la sua capcità di reinventarsi durante gli anni e rimanere per anni all'interno dei "magnificent-seven".
+    \end{itemize}
+        
+    \item Settore Energetico: 
+    \begin{itemize}
+        \item ExxonMobil (XOM): azienda petrolifera leader mondiale, con una forte presenza in tutto il mondo. È stata scelta per la sua posizione di leadership nel settore energetico, essendo la compagnia americana con la maggiore capitalizzazione di mercato e perchè a differenza delle altre compagnie è più caute riguardo gli investimenti nelle energie rinnovabili.
+        \item NextEra Energy (NEE): azienda energetica americana, con una forte presenza nel settore delle energie rinnovabili. È stata scelta per il suo orientamento verso le energie rinnovabili rispetto a ExxonMobil. 
+    \end{itemize}
+
+    Inoltre entrambi sono state scelte per analizzare i trend del settore energetico sia rinnovabile che quello dei combustibili fossili nei periodi di tensioni geopolitiche, come la guerra in Ucraina e Iran e per il trend di calo durante la pandemia, essendo il settore energetico quello più colpito, visto le diminuzione di domanda del petrolio.
+
+    \item Settore Automobilistico: 
+    \begin{itemize}
+        \item Tesla (TSLA): azienda specializzata nella produzione di veicoli elettrici (EV). È stata scelta poichè nonostante l'intensificarsi della concorrenza da parte dei costruttori cinesi, Tesla sta mantenendo una posizione di rilievo agli investimenti per la creazione di robotaxi.
+        \item General Motors (GM): azienda leader in America basata su veicoli a motore. È stata scelta per il suo obbiettivo annunciato di produrre solo veicoli elettrici entro il 2035.
+    \end{itemize}
+\end{enumerate}
+
+\section{Funzioni utilizzate}
+Le funzioni utilizzate per scaricare i dati sono:
+\begin{itemize}
+    \item \texttt{yfinance.download()}: per scaricare i dati storici dei prezzi delle azioni.
+    \item \texttt{pandas.DataFrame}: per manipolare e analizzare i dati scaricati.
+\end{itemize}
+
+Ad esempio, è stato utilizzato \texttt{pandas.DataFrame.xs()} per dividere il DataFrame multilevel in più DataFrame, uno per ogni titolo.
+
+\section{Breve Presentazione dei dati}
+\begin{itemize}
+    \item \textbf{NVIDIA (NVDA)}:
+        Il titolo mostra una crescita esponenziale negli ultimi anni dovuta alla posizione di leadership nel settore dei semiconduttori e dell'intelligenza artificiale.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/NVDA_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/NVDA_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+    \item \textbf{Microsoft (MSFT)}: 
+        Il titolo mostra una crescita costante negli ultimi anni, principalmente a causa della sua leadership nel settore del software e dei servizi cloud.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/MSFT_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad 
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/MSFT_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+    \item \textbf{ExxonMobil (XOM)}: 
+        Il titolo mostra una crescita variabile negli ultimi anni, influenzata dalle fluttuazioni dei prezzi del petrolio e dalle dinamiche del mercato energetico a sua volta influenzati dalle tensioni geopolitiche.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/XOM_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/XOM_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+    \item \textbf{NextEra Energy (NEE)}: 
+        Il titolo mostra una crescita quasi costante, interrotta e poi ripresa da un periodo di calo.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/NEE_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad 
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/NEE_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+    \item \textbf{Tesla (TSLA)}: 
+        Il titolo mostra grandi picchi e grandi cali, ma ciò nonostante è in crescita rispetto all'inizio del periodo considerato.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/TSLA_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/TSLA_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+    \item \textbf{General Motors (GM)}: 
+        Il titolo mostra un periodo di forte crescita soprattutto negli ultimi anni.
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/GM_data_display.png}
+                \caption{\texttt{DataFrame.head()}}
+            \end{subfigure}
+            \quad 
+            \begin{subfigure}{0.43\textwidth}
+                \centering
+                \includegraphics[width=\textwidth]{./images/GM_data_presentation.png}
+                \caption{Prezzo di chiusura}
+            \end{subfigure}
+        \end{figure}
+\end{itemize}
+
+\chapter{Analisi Statistica}
+\section{Rendimenti}
+Per tutti i titoli presi in considerazione si può affermare che i rispettivi grafici oscillano costantemente attorno a una media che si colloca vicina allo zero.
+Inoltre, è possibile notare lo shock di inizio 2020, dovuto alla pandemia, che ha portato a una forte volatilità, con rendimenti estremamente negativi in un breve periodo di tempo, ma anche picchi di rendimenti positivi.
+
+
+\subsection{Settore tecnologico}
+Un analisi visiva dei grafici dei titoli di Nvidia e Microsoft mostra una correlazione positiva visto che l'andamento dei rendimenti è quasi simile, con la sola differenza che Nvidia mostra un numero di picchi di rendimenti, sia positivi che negativi, maggiore.
+Alcuni esempi sono:
+\begin{itemize}
+    \item Fine 2016: L'azienda smette di essere considerata solo come un produttore di schede grafiche per videogiochi e inizia a essere vista come in un ruolo chiave nell'addestratemento dell'intelligenza artificiale, dovuto al vantaggio delle GPU, rispetto alle CPU nella capacità computazionale.
+    \item Fine 2018: Con il crollo delle criptovalute, subisce un forte calo a causa della diminuzione della domanda di GPU per il mining.
+    \item Metà 2023: Riconducibile al picco di euforia dell'AI.
+    \item inizio 2025: Un picco negativo dovuto all'uscita del modello cinese Deepseek, che riusciva ad avere prestazioni simili a quelle dei modelli di OpenAI, ma con un costo di addestramento molto più basso, quindi a un minor necessità di utilizzo di grandi quantità di GPU.
+\end{itemize} 
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_log_returns.png}
+        \caption{Microsoft (MSFT)}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_log_returns.png}
+        \caption{NVIDIA (NVDA)}
+    \end{subfigure}
+\end{figure}
+\subsection{Settore energetico}
+Per quanto riguarda il settore energetico è possibile notare come entrambi i titoli siano più volatili nel periodo post pandemia rispetto al periodo precedente e specificatamente i rendimenti di ExxonMobil (XOM) siano più volatili rispetto a quelli di NextEra Energy (NEE), con picchi più pronunciati sia in positivo che in negativo. Questo potrebbe essere dovuto alla maggiore esposizione di ExxonMobil alle fluttuazioni dei prezzi del petrolio e alle tensioni geopolitiche, mentre NextEra Energy, essendo più orientata verso le energie rinnovabili, potrebbe essere meno influenzata da questi fattori.
+
+Si può affermare perciò che questi due titoli hanno una correlazione positiva.
+
+Uno dei picchi più rilevanti, diversi da quelli dovuti alla pandemia, è:
+\begin{itemize}
+    \item fine 2020: dovuto alla ripresa della domanda di petrolio dopo il crollo causato dalla pandemia, che ha portato a un aumento dei prezzi del petrolio.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_log_returns.png}
+        \caption{ExxonMobil (XOM)}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_log_returns.png}
+        \caption{NextEra Energy (NEE)}
+    \end{subfigure}
+\end{figure}
+\subsection{Settore automobilistico}
+Nel settore automobilistico, invece, si evidenza che i due titoli presi in considerazione non mostrano una correlazione molto positiva e questo è dovuto al fatto che Tesla sia un'azienda influenzabile oltre che dal settore automobilistico, anche da quello tecnologico, visto gli investimenti nell'AI per lo sviluppo di macchine a guida autonoma, dal settore energetico, visto lo sviluppo di pannelli solari e dalle dichiarazione del CEO Elon Musk.
+Alcuni esempi sono:
+\begin{itemize}
+    \item fine 2020: l'annuncio dell'esclusione di Tesla dall'indice S\&P 500.
+    \item fine 2024: dovuto alla pubblicazione di bilanci che hanno sorpreso positivamente gli investitori, con un aumento dei ricavi e degli utili superiore alle aspettative.
+    \item inizio 2025: causato da speculazioni sulla deregolamentazione riguardante i robotaxi che avrebbe favorito il lancio di questo servizio da parte di Tesla.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_log_returns.png}
+        \caption{General Motors (GM)}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_log_returns.png}
+        \caption{Tesla (TSLA)}
+    \end{subfigure}
+\end{figure}
+
+\bigskip
+
+\section{Grafici diagnostici}
+Di seguito, l'analisi dei rendimenti dei sei titoli che si basa sull'utilizzo di grafici a tre sezioni:
+\begin{itemize}
+    \item \textbf{Istogramma con stima della densità kernel (KDE)} 
+    \item \textbf{Boxplot}
+    \item \textbf{Q-Q Plot}
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NVDA_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (NVDA)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/MSFT_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (MSFT)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/XOM_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (XOM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NEE_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (NEE)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/GM_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (GM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/TSLA_diagnostic_plots.png}
+    \caption{Statistiche descrittive dei rendimenti (TSLA)}
+\end{figure}
+
+
+\subsection{Dispersione dei Rendimenti}
+Si notano \textbf{ampie differenze} nella dispersione dei rendimenti dei vari titoli:
+\begin{itemize}
+    \item \textbf{Maggiore dispersione:} (\textbf{NVDA} e \textbf{TSLA}). I loro istogrammi appaiono più schiacciati e allargati, con un picco di densità intorno a 16. Il range dei rendimenti è maggiormente esteso rispetto agli altri titoli, superando anche la soglia del $\pm 20\%$, il che si traduce in maggior volatilità e rischio.
+    \item \textbf{Minore dispersione:} (\textbf{MSFT}, \textbf{NEE} e \textbf{XOM}). I grafici mostrano una forte concentrazione dei dati attorno allo zero. Gli istogrammi sono stretti e alti (con picchi di densità superiori a 30 per MSFT e NEE), con rendimenti ordinari racchiusi principalmente nel range $\pm 5\%$.
+    \item \textbf{Dispersione intermedia:} Il titolo \textbf{GM} mostra una variabilità moderata, posizionandosi come via di mezzo, sebbene presenti code che si allungano comunque verso picchi del $\pm 15\%$.
+\end{itemize}
+
+\subsection{Analisi della Normalità}
+Dai grafici, \textbf{nessuno dei titoli è distribuito normalmente}. Tutti gli asset manifestano le proprietà tipiche delle serie storiche finanziarie, ovvero leptocurtosi e code pesanti (\textit{fat tails}):
+\begin{itemize}
+    \item \textbf{Effetto Leptocurtico:} Nei pannelli dedicati alla densità (sinistra), la linea della densità reale (KDE) mostra un picco centrale molto più elevato e appuntito rispetto alla curva tratteggiata della Normale Teorica. Ciò indica un netto eccesso di rendimenti prossimi allo zero.
+    \item \textbf{Code Pesanti (Fat Tails):} Nei \textbf{Q-Q Plot} (destra), i punti campionari blu non seguono la retta di riferimento teorica rossa. Al contrario, disegnano una marcata \textbf{forma a ``S''}, deviando verso il basso nella coda sinistra e verso l'alto nella coda destra. Questo comportamento grafico certifica che gli shock di mercato (rendimenti estremi) hanno una frequenza di accadimento molto superiore rispetto a quanto previsto da una Gaussiana.
+\end{itemize}
+
+\subsection{Presenza di Outliers}
+\textbf{Si rileva una presenza massiccia di outlier in tutti i titoli analizzati}. Tale fenomeno è visibile sia nei singoli punti oltre i baffi dei boxplot, sia nelle estremità dei Q-Q Plot.
+
+\begin{itemize} 
+    \item Gli outlier sono distribuiti in modo fitto sia sopra il baffo superiore (rendimenti positivi anomali) sia sotto il baffo inferiore (rendimenti negativi anomali).
+    \item I titoli che registrano anomalie più distanti dallo zero, superando i valori del $\pm 15\% / 20\%$, sono NVDA e TSLA.
+\end{itemize}
+
+\section{Analisi Univariata}
+Sono state calcolate le statistiche descrittive per ciascun titolo, come mostrato nella tabella seguente:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/Univariate_Analysis.png}
+    \caption{Statistiche descrittive dei rendimenti}
+\end{figure}
+
+\subsection{Rendimento Annualizzato}
+Dall'analisi della \textbf{Media Annualizzata} dei rendimenti, si identificano:
+\begin{itemize}
+    \item \textbf{Rendimento più alto:} \textbf{NVDA} registra una media annualizzata del \textbf{0.525829}.
+    \item \textbf{Rendimento più basso:} \textbf{GM} mostra una media più piccola, pari al \textbf{0.104971}.
+\end{itemize}
+
+\subsection{Volatilità Annualizzata}
+Dall'analisi della \textbf{Deviazione Standard Annualizzata} dei rendimenti, si identificano:
+\begin{itemize}
+    \item \textbf{Rischio più alto:} \textbf{TSLA} (Tesla) presenta il valore massimo con il (0.588368). Si conferma un titolo caratterizzato da forti oscillazioni e rischio elevato, come visto dal grafico dei rendimenti.
+    \item \textbf{Rischio più basso:} \textbf{NEE} (NextEra Energy) registra il valore minimo con il (0.253141).
+\end{itemize}
+
+\subsection{Distanza dalla Normale}
+Tramite il valore della distanza dalla normale, calcolato come la distanza euclidea utilizzando come coordinate la \textbf{skewness} e la \textbf{curtosi in eccesso}, è possibile identificare:
+\begin{itemize}
+    \item \textbf{Distribuzione più vicina alla Normale:} \textbf{TSLA} presenta il valore più basso di distanza (\textbf{4.278580}). Nonostante la sua alta volatilità, la distribuzione dei suoi rendimenti segue una forma più simmetrica e vicina alla curva gaussiana standard (seppur con code pesanti) rispetto agli altri titoli.
+    \item \textbf{Distribuzione più lontana dalla Normale:} \textbf{NEE} registra il valore più alto di distanza (\textbf{9.585131}). Questo scostamento è guidato da una forte asimmetria negativa ($-0.532201$) e da un'elevata curtosi in eccesso ($9.570345$), segnale di una distribuzione caratterizzata da una concentrazione di rendimenti stabili vicini alla media, ma interrotti da rari eventi negativi di grande intensità.
+\end{itemize}
+
+\subsection{Evoluzione Temporale di media e deviazione standard}
+La media e la deviazione standard dei rendimenti sono stati calcolati su finestre mobili di 1 anno. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth]{./images/moving_averages_volatility.png}
+    \caption{Rendimento e Volatilità nel tempo}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Instabilità dei Rendimenti:} I rendimenti oscillano attorno allo zero. Si evidenziano:
+        \begin{itemize}
+            \item[-] \textbf{TSLA} mostra un picco eccezionale tra il 2020 e il 2021 (superando quota 2.0), seguito da una correzione altrettanto marcata sotto lo zero nel 2023. 
+            \item[-] \textbf{NVDA} evidenzia invece un trend di picchi ricorrenti e robusti, in particolare nel 2021 e nel 2024.
+        \end{itemize}
+    \item \textbf{Shock di Mercato (2020):} All'inizio del 2020 si nota un'impennata simultanea della deviazione standard per tutti i titoli in esame, in corrispondenza alla pandemia di COVID-19.
+    \item \textbf{Gerarchia della Volatilità:} La linea associata a \textbf{TSLA} (colore viola) rimane quasi stabilmente la più elevata per l'intero orizzonte temporale. Al contrario, \textbf{NEE} (linea verde) e \textbf{MSFT} (linea arancione) mantengono costantemente i profili più bassi e schiacciati verso il fondo del grafico.
+\end{itemize}
+
+\section{Correlazione}
+
+Sulla base della matrice di correlazione dei rendimenti mensili, si identificano le seguenti relazioni chiave tra i titoli:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/correlation_matrix.png}
+    \caption{Matrice di Correlazione dei Rendimenti Mensili}
+\end{figure}
+
+\subsection{Valori Estremi (Massimi e Minimi)}
+\begin{itemize}
+    \item \textbf{Titoli più correlati:} \textbf{MSFT} (Microsoft) e \textbf{NVDA} (NVIDIA) presentano il coefficiente di correlazione più elevato della matrice, indicando una forte coerenza di movimento:
+    \[
+    \rho_{\text{MSFT, NVDA}} = 0.639104
+    \]
+    
+    \item \textbf{Titoli meno correlati:} \textbf{NEE} (NextEra Energy) e \textbf{XOM} (ExxonMobil) mostrano la correlazione più bassa e allo stesso tempo anche negativa, indicando una sostanziale indipendenza lineare:
+    \[
+    \rho_{\text{NEE, XOM}} = -0.016583
+    \]
+\end{itemize}
+
+\subsection{Altre Correlazioni}
+Si evidenziano ulteriori relazioni:
+
+\begin{itemize}
+    \item \textbf{GM e XOM ($\rho \approx 0.43$):} Legame positivo medio-alto tra il settore automobilistico tradizionale e quello petrolifero.
+    
+    \item \textbf{MSFT e TSLA ($\rho \approx 0.40$):} Relazione positiva media guidata dal fatto che TSLA rappresenta anche un titolo tecnologico.
+    
+    \item \textbf{NVDA e TSLA ($\rho \approx 0.33$):} Per lo stesso motivo, è presente una relazione positiva media anche tra questi due titoli.
+    
+    \item \textbf{NEE:} Mostra correlazioni basse con tutti gli asset ($\rho \le 0.24$).
+\end{itemize}
+
+\section{Cambiamento della correlazione nel tempo}
+La correlazione storica mobile è stata calcolata per i titoli appartenenti allo stesso settore, utilizzando finestre mobili di 1 anno.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/rolling_correlation_same_sector.png}
+    \caption{Correlazione Storica Mobile}
+\end{figure}
+
+\subsection{Andamento nel tempo}
+
+\begin{itemize}
+    \item \textbf{NVDA vs MSFT}: Come si può vedere dal grafico, la relazione è la più solida, stabile e costantemente positiva. Il coefficiente si mantiene stabilmente sopra lo $0.50$, registrando un picco vicino allo $0.85$ tra il 2020 e il 2021. Tale dinamica riflette la forte interconnessione del settore tecnologico (hardware e infrastrutture software/cloud).
+    
+    \item \textbf{GM vs TSLA}: Nel periodo pre pandemia mostra un andamento costante, nel periodo post pandemia mostra una tendenza oscillante. Pur variando, rimane sempre positiva toccando proprio il minimo nel 2021. Questa evoluzione oscillatoria può essere causata dal fatto che Tesla, pur essendo un'azienda automobilistica, abbia iniziato a essere influenzata anche da altri fattori, come quelli tecnologici. 
+    
+    \item \textbf{NEE vs XOM}: Rappresenta la coppia con la relazione più debole e instabile. Il valore resta frequentemente attorno allo zero, diventando negativo in molteplici occasioni (2018, 2020, fine 2021). La decorrelazione può essere spiegata dal fatto che, pur rimanendo all'interno del settore energetico, NEE è focalizzata sulle energie rinnovabili, mentre XOM è legata ai combustibili fossili tradizionali.
+\end{itemize}
+
+\subsection{Relazione tra rendimenti e correlazione}
+
+In generale, si osserva che in momenti negativi per i mercati, caratterizzati da rendimenti negativi, le correlazioni tendono a salire, mentre in periodi di stabilità con prevalenza di rendimenti positivi, le correlazioni possono diminuire o diventare più volatili, divenendo influenzate non più da fattori globali ma da cause relative al settore o alla singola azienda.
+
+Ad esempio, ad inizio pandemia, si nota un picco simultaneo verso l'alto di tutte e tre le serie storiche, a causa del crollo dei mercati, mentre nella fase di ripresa post pandemia si nota un crollo delle correlazioni.
+
+\subsection{Dispersione degli scatter plot}
+
+Visualizzando la disposizione spaziale dei punti possiamo confermare o smentire la presenza di una relazione lineare tra i rendimenti giornalieri dei titoli appartenenti allo stesso settore.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NVDA_MSFT.png}
+    \caption{Scatter plot NVDA vs MSFT}
+\end{figure}
+
+\textbf{\textit{NVDA vs MSFT} (Buona conferma):} La nuvola di punti assume una configurazione ellittica visibilmente allungata nella direzione della retta di regressione, quindi le osservazioni sono distribuite omogeneamente sia sotto che sopra la retta.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_TSLA.png}
+        \caption{Scatter plot GM vs TSLA}
+    \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_XOM.png}
+        \caption{Scatter plot NEE vs XOM}
+    \end{subfigure}
+    \caption{Scatter plot GM vs TSLA e NEE vs XOM}
+\end{figure}
+
+
+\begin{itemize}
+    \item \textbf{GM vs TSLA e NEE vs XOM (Mancata convalida):} I grafici mostrano nuvole di punti decisamente più sferiche, espanse e disperse. Molteplici osservazioni si collocano a forte distanza geometrica dalla retta rossa quindi, sebbene indichi una pendenza positiva teorica, l'elevata dispersione smentisce la presenza di una relazione lineare robusta o affidabile per la stima dei rendimenti su base giornaliera.
+\end{itemize}
+
+\chapter{Previsione}
+
+
+
+
+\section*{ii. Cambiamento della correlazione nel tempo}
+
+La correlazione storica dimostra di non essere un parametro statico, bensì una variabile macroeconomica condizionata dal sentiment di mercato:
+
+\begin{itemize}
+    \item \textbf{Effetto Shock e Crisi (2020):} In concomitanza con il crollo dei mercati causato dallo scoppio della pandemia da COVID-19, si osserva un repentino picco simultaneo verso l'alto di tutte e tre le serie storiche. Nei momenti di panico finanziario sistemico, i benefici della diversificazione si riducono poiché le correlazioni tendono a convergere verso l'$1$ a causa delle liquidazioni indiscriminate da parte degli investitori.
+    \item \textbf{Fase Post-Crisi e Rotazione Settoriale (2021-2026):} A partire dal 2021, le traiettorie si separano nettamente. Mentre il comparto tecnologico e quello automobilistico preservano un legame positivo di fondo, il settore energetico si scollega dal trend principale. Questo fenomeno evidenzia l'impatto delle rotazioni settoriali e dei mutamenti di politica monetaria (es. il ciclo di rialzo dei tassi d'interesse).
+\end{itemize}
+
+\section*{iii. Cambiamento delle correlazioni in funzione dei rendimenti}
+
+Dall'analisi congiunta dei grafici a dispersione (\textit{scatter plot}) e delle serie temporali emergono importanti asimmetrie legate all'ampiezza dei rendimenti giornalieri:
+
+\begin{itemize}
+    \item \textbf{Rendimenti ordinari:} In condizioni di normale operatività di mercato (rendimenti prossimi allo $0$), le osservazioni si concentrano in una nuvola densa attorno all'origine. In questo regime, i movimenti dei titoli sono dominati da \textit{rumore di fondo} e da fattori idiosidratici legati alle singole aziende, indebolendo la forza della correlazione quotidiana.
+    \item \textbf{Rendimenti estremi (Code della distribuzione):} La pendenza positiva delle rette di regressione è fortemente influenzata e stabilizzata dai punti situati alle estremità dei grafici (elevati rendimenti positivi o negativi). Ciò indica che la correlazione settoriale tende ad amplificarsi in presenza di shock macroeconomici o notizie di forte impatto che travolgono l'intero comparto industriale.
+\end{itemize}
+
+
+
+\section{Modello ARIMA}
+
+\section{Strategie di Trading e Backtesting}
+
+\section{Analisi Statica}
+
+\section{Strategie Dinamiche}
+
+\chapter{CAPM}
+
+\chapter{Costruzione Portafoglio}
+
+\end{document}
