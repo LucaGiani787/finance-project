@@ -445,30 +445,98 @@ Visualizzando la disposizione spaziale dei punti possiamo confermare o smentire 
     \item \textbf{GM vs TSLA e NEE vs XOM (Mancata convalida):} I grafici mostrano nuvole di punti decisamente più sferiche, espanse e disperse. Molteplici osservazioni si collocano a forte distanza geometrica dalla retta rossa quindi, sebbene indichi una pendenza positiva teorica, l'elevata dispersione smentisce la presenza di una relazione lineare robusta o affidabile per la stima dei rendimenti su base giornaliera.
 \end{itemize}
 
+\chapter{CAPM}
+
+\section{Analisi Economica e Commento dei Risultati}
+
+Sulla base dei risultati ottenuti dal calcolo del \textbf{Beta}, del \textbf{rendimento atteso} e dell'esposizione ai \textbf{fattori di rischio Fama-French}, è possibile trarre le seguenti conclusioni:
+
+\subsection{Analisi del CAPM e dei Rendimenti Attesi}
+L'analisi si basa su un tasso risk-free ($R_f$) del $3.80\%$ e su un rendimento atteso di mercato $E(R_m)$ dell'$11.91\%$, calcolato come media geometrica dei dati storici dell'intero periodo considerato. Sullo stesso arco temporale sono stati ricavati i Beta azionari, utilizzati poi nel modello CAPM per determinare i seguenti rendimenti attesi:
+
+\begin{itemize}
+    \item \textbf{TSLA e NVDA:} Tesla ($\beta \approx 1.97$) e Nvidia ($\beta \approx 1.86$) sono i titoli più aggressivi e, di conseguenza, mostrano i rendimenti attesi più elevati, rispettivamente del $19.7\%$ e del $18.8\%$.
+    \item \textbf{GM e MSFT:} Entrambi i titoli, General Motors ($\beta \approx 1.35$) e Microsoft ($\beta \approx 0.96$) sono i titoli che si muovono in quasi perfetta sintonia con l'indice S\&P 500, offrendo un rendimento atteso rispettivamente del $14.75\%$ e del $11.62\%$.
+    \item \textbf{XOM e NEE:} I titoli più difensivi sono ExxonMobil ($\beta \approx 0.81$) e in particolar modo NextEra Energy ($\beta \approx 0.46$), quale mostra un rendimento atteso di $7.55\%$. Per XOM, il rendimento atteso è del $10.40\%$.
+\end{itemize}
+
+\begin{figure}[H]
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/Expected_returns.png}
+        \caption{Rendimenti attesi secondo il CAPM}
+        \label{fig:capm_results}
+    \end{subfigure}
+    \begin{subfigure}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/Betas.png}
+        \caption{Valori di Beta}
+        \label{fig:beta_values}
+    \end{subfigure}
+    \caption{Rendimenti attesi e Beta dei titoli}
+\end{figure}
+
+\subsection{Interpretazione Economica delle Esposizioni Rolling Fama-French}
+Oltre al calcolo dell'esposizione storica ai fattori di rischio Fama-French, è stata condotta un'analisi dinamica tramite grafici rolling, che mostrano l'evoluzione temporale.
+
+\subsubsection{Microsoft (MSFT)}
+Il coefficiente \textbf{Mkt-RF} fluttua costantemente attorno all'1, dimostrando che il titolo segue il mercato senza amplificare i suoi movimenti. I fattori \textbf{SMB} e \textbf{HML} si mantengono stabilmente in territorio negativo, confermandolo come titolo \textit{Mega-Cap Growth} per gli ultimi 5 anni. L'incremento progressivo del fattore \textbf{RMW} (redditività) a partire dal 2024 riflette l'eccellente monetizzazione legata all'Intelligenza Artificiale.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/MSFT_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{NVIDIA (NVDA)}
+Il suo beta di mercato (\textbf{Mkt-RF}) aumenta durante tutto il periodo, passando da circa 1.3 a oltre 2.0, aiutato dal boom dell'AI. Il fattore \textbf{HML} costantemente negativo ne ribadisce la natura di titolo \textit{Growth}. L'elemento più rilevante è l'andamento del fattore \textbf{CMA}, che mostra una risalita da valori fortemente negativi verso lo zero, indicando una progressiva diminuzione del rischio, dovuto solo da questo fattore.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/NVDA_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{Tesla (TSLA)}
+Il suo coefficiente di mercato (\textbf{Mkt-RF}) si riduce nel tempo verso quota 1.5, dopo aver toccato un livello estremo superiore a 2.5 nel 2021. Il fattore CMA inizialmente molto elevato rifletteva una fase di gestione fortemente conservativa che dal 2022 ad oggi è crollato, indicando il fatto che la società ha iniziato a investire molto nell'AI. Da notare inoltre, è l'inversione del fattore \textbf{SMB}, che dopo il 2023 diventa positivo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/TSLA_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{General Motors (GM)}
+In GM si evidenzia principalmente il fattore \textbf{HML} positivo, il che certifica la sua classificazione come titolo \textit{Value}, ovvero un titolo che ha un prezzo inferiore rispetto al suo reale valore intrinseco. Inoltre il fattore \textbf{SMB}, inizialmente molto elevato, mostra una considerazione da parte del mercato di un titolo sempre più \textit{Large Cap}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/GM_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{ExxonMobil (XOM)}
+ExxonMobil ha visto aumentare il suo fattore HML dopo il 2022 perché l'impennata del prezzo del petrolio ha generato utili e dividendi record immediati, aumentando la sua considerazione come titolo Value. Si evidenzia inoltre un passaggio del fattore \textit{SMB} da positivo a negativo, indicando una progressiva percezione di un titolo sempre più \textit{Large Cap}, dovuto sempre più alla stabilità dei guadagni sempre conseguenti ai rialzi del prezzo del petrolio negli ultimi anni. Inoltre il \textit{Mkt-RF} si è ridotto da 1.0 a quasi 0.6.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/XOM_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{NextEra Energy (NEE)}
+Il \textbf{Mkt-RF} ha un aumento fino al valore di 0.8. Si evidenzia un valore negativo del fattore \textbf{HML}, confermando il fatto che l'azienda viene valutata per le aspettative di crescita, essendo l'energia rinnovabile ancora considerata un settore di innovazione. Inoltre l'impennata del fattore \textbf{RMW} (redditività), conferma il fatto che è un titolo difensivo, visto anche la distribuzione dei rendimenti molto concentrata attorno allo zero, con pochi eventi estremi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/NEE_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\chapter{Strategie di trading e backtesting – Strategie dinamiche}
+
+\chapter{Costruzione Portafoglio}
+
 \chapter{Previsione}
-
-
-
-
-\section*{ii. Cambiamento della correlazione nel tempo}
-
-La correlazione storica dimostra di non essere un parametro statico, bensì una variabile macroeconomica condizionata dal sentiment di mercato:
-
-\begin{itemize}
-    \item \textbf{Effetto Shock e Crisi (2020):} In concomitanza con il crollo dei mercati causato dallo scoppio della pandemia da COVID-19, si osserva un repentino picco simultaneo verso l'alto di tutte e tre le serie storiche. Nei momenti di panico finanziario sistemico, i benefici della diversificazione si riducono poiché le correlazioni tendono a convergere verso l'$1$ a causa delle liquidazioni indiscriminate da parte degli investitori.
-    \item \textbf{Fase Post-Crisi e Rotazione Settoriale (2021-2026):} A partire dal 2021, le traiettorie si separano nettamente. Mentre il comparto tecnologico e quello automobilistico preservano un legame positivo di fondo, il settore energetico si scollega dal trend principale. Questo fenomeno evidenzia l'impatto delle rotazioni settoriali e dei mutamenti di politica monetaria (es. il ciclo di rialzo dei tassi d'interesse).
-\end{itemize}
-
-\section*{iii. Cambiamento delle correlazioni in funzione dei rendimenti}
-
-Dall'analisi congiunta dei grafici a dispersione (\textit{scatter plot}) e delle serie temporali emergono importanti asimmetrie legate all'ampiezza dei rendimenti giornalieri:
-
-\begin{itemize}
-    \item \textbf{Rendimenti ordinari:} In condizioni di normale operatività di mercato (rendimenti prossimi allo $0$), le osservazioni si concentrano in una nuvola densa attorno all'origine. In questo regime, i movimenti dei titoli sono dominati da \textit{rumore di fondo} e da fattori idiosidratici legati alle singole aziende, indebolendo la forza della correlazione quotidiana.
-    \item \textbf{Rendimenti estremi (Code della distribuzione):} La pendenza positiva delle rette di regressione è fortemente influenzata e stabilizzata dai punti situati alle estremità dei grafici (elevati rendimenti positivi o negativi). Ciò indica che la correlazione settoriale tende ad amplificarsi in presenza di shock macroeconomici o notizie di forte impatto che travolgono l'intero comparto industriale.
-\end{itemize}
-
-
 
 \section{Modello ARIMA}
 
@@ -478,8 +546,5 @@ Dall'analisi congiunta dei grafici a dispersione (\textit{scatter plot}) e delle
 
 \section{Strategie Dinamiche}
 
-\chapter{CAPM}
-
-\chapter{Costruzione Portafoglio}
 
 \end{document}
