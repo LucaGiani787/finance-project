@@ -61,104 +61,78 @@ Le funzioni utilizzate per scaricare i dati sono:
 Ad esempio, è stato utilizzato \texttt{pandas.DataFrame.xs()} per dividere il DataFrame multilevel in più DataFrame, uno per ogni titolo.
 
 \section{Breve Presentazione dei dati}
-\begin{itemize}
-    \item \textbf{NVIDIA (NVDA)}:
-        Il titolo mostra una crescita esponenziale negli ultimi anni dovuta alla posizione di leadership nel settore dei semiconduttori e dell'intelligenza artificiale.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/NVDA_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/NVDA_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-    \item \textbf{Microsoft (MSFT)}: 
-        Il titolo mostra una crescita costante negli ultimi anni, principalmente a causa della sua leadership nel settore del software e dei servizi cloud.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/MSFT_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad 
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/MSFT_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-    \item \textbf{ExxonMobil (XOM)}: 
-        Il titolo mostra una crescita variabile negli ultimi anni, influenzata dalle fluttuazioni dei prezzi del petrolio e dalle dinamiche del mercato energetico a sua volta influenzati dalle tensioni geopolitiche.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/XOM_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/XOM_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-    \item \textbf{NextEra Energy (NEE)}: 
-        Il titolo mostra una crescita quasi costante, interrotta e poi ripresa da un periodo di calo.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/NEE_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad 
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/NEE_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-    \item \textbf{Tesla (TSLA)}: 
-        Il titolo mostra grandi picchi e grandi cali, ma ciò nonostante è in crescita rispetto all'inizio del periodo considerato.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/TSLA_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/TSLA_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-    \item \textbf{General Motors (GM)}: 
-        Il titolo mostra un periodo di forte crescita soprattutto negli ultimi anni.
-        \begin{figure}[H]
-            \centering
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/GM_data_display.png}
-                \caption{\texttt{DataFrame.head()}}
-            \end{subfigure}
-            \quad 
-            \begin{subfigure}{0.43\textwidth}
-                \centering
-                \includegraphics[width=\textwidth]{./images/GM_data_presentation.png}
-                \caption{Prezzo di chiusura}
-            \end{subfigure}
-        \end{figure}
-\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/data_presentation.png}
+    \caption{Prezzo di chiusura dei titoli}
+\end{figure}
+
+
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{NVIDIA (NVDA)}: Il titolo mostra una crescita esponenziale negli ultimi anni dovuta alla posizione di leadership nel settore dei semiconduttori e dell'intelligenza artificiale.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_data_display.png}
+    \end{minipage}
+
+    \bigskip
+
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{Microsoft (MSFT)}: Il titolo mostra una crescita costante negli ultimi anni, principalmente a causa della sua leadership nel settore del software e dei servizi cloud.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_data_display.png}
+    \end{minipage}
+
+    \bigskip
+
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{ExxonMobil (XOM)}: Il titolo mostra una crescita variabile negli ultimi anni, influenzata dalle fluttuazioni dei prezzi del petrolio e dalle dinamiche del mercato energetico a sua volta influenzati dalle tensioni geopolitiche.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_data_display.png}
+    \end{minipage}
+
+    \bigskip
+
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{NextEra Energy (NEE)}: Il titolo mostra una crescita quasi costante, interrotta e poi ripresa da un periodo di calo.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_data_display.png}
+    \end{minipage}
+
+    \bigskip
+
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{Tesla (TSLA)}: Il titolo mostra grandi picchi e grandi cali, ma ciò nonostante è in crescita rispetto all'inizio del periodo considerato.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_data_display.png}
+    \end{minipage}
+
+    \bigskip
+    
+    \begin{minipage}[c]{0.53\textwidth}
+        \textbf{General Motors (GM)}: Il titolo mostra un periodo di forte crescita soprattutto negli ultimi anni.
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.43\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_data_display.png}
+    \end{minipage}
+
+
 
 \chapter{Analisi Statistica}
 \section{Rendimenti}
@@ -445,41 +419,368 @@ Visualizzando la disposizione spaziale dei punti possiamo confermare o smentire 
     \item \textbf{GM vs TSLA e NEE vs XOM (Mancata convalida):} I grafici mostrano nuvole di punti decisamente più sferiche, espanse e disperse. Molteplici osservazioni si collocano a forte distanza geometrica dalla retta rossa quindi, sebbene indichi una pendenza positiva teorica, l'elevata dispersione smentisce la presenza di una relazione lineare robusta o affidabile per la stima dei rendimenti su base giornaliera.
 \end{itemize}
 
-\chapter{Previsione}
-
-
-
-
-\section*{ii. Cambiamento della correlazione nel tempo}
-
-La correlazione storica dimostra di non essere un parametro statico, bensì una variabile macroeconomica condizionata dal sentiment di mercato:
-
-\begin{itemize}
-    \item \textbf{Effetto Shock e Crisi (2020):} In concomitanza con il crollo dei mercati causato dallo scoppio della pandemia da COVID-19, si osserva un repentino picco simultaneo verso l'alto di tutte e tre le serie storiche. Nei momenti di panico finanziario sistemico, i benefici della diversificazione si riducono poiché le correlazioni tendono a convergere verso l'$1$ a causa delle liquidazioni indiscriminate da parte degli investitori.
-    \item \textbf{Fase Post-Crisi e Rotazione Settoriale (2021-2026):} A partire dal 2021, le traiettorie si separano nettamente. Mentre il comparto tecnologico e quello automobilistico preservano un legame positivo di fondo, il settore energetico si scollega dal trend principale. Questo fenomeno evidenzia l'impatto delle rotazioni settoriali e dei mutamenti di politica monetaria (es. il ciclo di rialzo dei tassi d'interesse).
-\end{itemize}
-
-\section*{iii. Cambiamento delle correlazioni in funzione dei rendimenti}
-
-Dall'analisi congiunta dei grafici a dispersione (\textit{scatter plot}) e delle serie temporali emergono importanti asimmetrie legate all'ampiezza dei rendimenti giornalieri:
-
-\begin{itemize}
-    \item \textbf{Rendimenti ordinari:} In condizioni di normale operatività di mercato (rendimenti prossimi allo $0$), le osservazioni si concentrano in una nuvola densa attorno all'origine. In questo regime, i movimenti dei titoli sono dominati da \textit{rumore di fondo} e da fattori idiosidratici legati alle singole aziende, indebolendo la forza della correlazione quotidiana.
-    \item \textbf{Rendimenti estremi (Code della distribuzione):} La pendenza positiva delle rette di regressione è fortemente influenzata e stabilizzata dai punti situati alle estremità dei grafici (elevati rendimenti positivi o negativi). Ciò indica che la correlazione settoriale tende ad amplificarsi in presenza di shock macroeconomici o notizie di forte impatto che travolgono l'intero comparto industriale.
-\end{itemize}
-
-
-
-\section{Modello ARIMA}
-
-\section{Strategie di Trading e Backtesting}
-
-\section{Analisi Statica}
-
-\section{Strategie Dinamiche}
-
 \chapter{CAPM}
 
-\chapter{Costruzione Portafoglio}
+\section{Introduzione}
+
+Sulla base dei risultati ottenuti dal calcolo del \textbf{Beta}, del \textbf{rendimento atteso} e dell'esposizione ai \textbf{fattori di rischio Fama-French}, è possibile trarre le seguenti conclusioni:
+
+\subsection{Analisi del CAPM e dei Rendimenti Attesi}
+L'analisi si basa su un tasso risk-free ($R_f$) del $3.80\%$ e su un rendimento atteso di mercato $E(R_m)$ dell'$11.91\%$, calcolato come media geometrica dei dati storici dell'intero periodo considerato. Sullo stesso arco temporale sono stati ricavati i Beta azionari, utilizzati poi nel modello CAPM per determinare i seguenti rendimenti attesi:
+
+\begin{itemize}
+    \item \textbf{TSLA e NVDA:} Tesla ($\beta \approx 1.97$) e Nvidia ($\beta \approx 1.86$) sono i titoli più aggressivi e, di conseguenza, mostrano i rendimenti attesi più elevati, rispettivamente del $19.7\%$ e del $18.8\%$.
+    \item \textbf{GM e MSFT:} Entrambi i titoli, General Motors ($\beta \approx 1.35$) e Microsoft ($\beta \approx 0.96$) sono i titoli che si muovono in quasi perfetta sintonia con l'indice S\&P 500, offrendo un rendimento atteso rispettivamente del $14.75\%$ e del $11.62\%$.
+    \item \textbf{XOM e NEE:} I titoli più difensivi sono ExxonMobil ($\beta \approx 0.81$) e in particolar modo NextEra Energy ($\beta \approx 0.46$), quale mostra un rendimento atteso di $7.55\%$. Per XOM, il rendimento atteso è del $10.40\%$.
+\end{itemize}
+
+\begin{figure}[H]
+    \begin{subfigure}{0.7\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/Expected_returns.png}
+        \caption{Rendimenti attesi secondo il CAPM}
+        \label{fig:capm_results}
+    \end{subfigure}
+    \begin{subfigure}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/Betas.png}
+        \caption{Valori di Beta}
+        \label{fig:beta_values}
+    \end{subfigure}
+    \caption{Rendimenti attesi e Beta dei titoli}
+\end{figure}
+
+\subsection{Interpretazione Economica delle Esposizioni Rolling Fama-French}
+Oltre al calcolo dell'esposizione storica ai fattori di rischio Fama-French, è stata condotta un'analisi dinamica tramite grafici rolling, che mostrano l'evoluzione temporale.
+
+\subsubsection{Microsoft (MSFT)}
+Il coefficiente \textbf{Mkt-RF} fluttua costantemente attorno all'1, dimostrando che il titolo segue il mercato senza amplificare i suoi movimenti. I fattori \textbf{SMB} e \textbf{HML} si mantengono stabilmente in territorio negativo, confermandolo come titolo \textit{Mega-Cap Growth} per gli ultimi 5 anni. L'incremento progressivo del fattore \textbf{RMW} (redditività) a partire dal 2024 riflette l'eccellente monetizzazione legata all'Intelligenza Artificiale.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/MSFT_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{NVIDIA (NVDA)}
+Il suo beta di mercato (\textbf{Mkt-RF}) aumenta durante tutto il periodo, passando da circa 1.3 a oltre 2.0, aiutato dal boom dell'AI. Il fattore \textbf{HML} costantemente negativo ne ribadisce la natura di titolo \textit{Growth}. L'elemento più rilevante è l'andamento del fattore \textbf{CMA}, che mostra una risalita da valori fortemente negativi verso lo zero, indicando una progressiva diminuzione del rischio, dovuto solo da questo fattore.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/NVDA_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{Tesla (TSLA)}
+Il suo coefficiente di mercato (\textbf{Mkt-RF}) si riduce nel tempo verso quota 1.5, dopo aver toccato un livello estremo superiore a 2.5 nel 2021. Il fattore CMA inizialmente molto elevato rifletteva una fase di gestione fortemente conservativa che dal 2022 ad oggi è crollato, indicando il fatto che la società ha iniziato a investire molto nell'AI. Da notare inoltre, è l'inversione del fattore \textbf{SMB}, che dopo il 2023 diventa positivo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/TSLA_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{General Motors (GM)}
+In GM si evidenzia principalmente il fattore \textbf{HML} positivo, il che certifica la sua classificazione come titolo \textit{Value}, ovvero un titolo che ha un prezzo inferiore rispetto al suo reale valore intrinseco. Inoltre il fattore \textbf{SMB}, inizialmente molto elevato, mostra una considerazione da parte del mercato di un titolo sempre più \textit{Large Cap}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/GM_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{ExxonMobil (XOM)}
+ExxonMobil ha visto aumentare il suo fattore HML dopo il 2022 perché l'impennata del prezzo del petrolio ha generato utili e dividendi record immediati, aumentando la sua considerazione come titolo Value. Si evidenzia inoltre un passaggio del fattore \textit{SMB} da positivo a negativo, indicando una progressiva percezione di un titolo sempre più \textit{Large Cap}, dovuto sempre più alla stabilità dei guadagni sempre conseguenti ai rialzi del prezzo del petrolio negli ultimi anni. Inoltre il \textit{Mkt-RF} si è ridotto da 1.0 a quasi 0.6.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/XOM_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\subsubsection{NextEra Energy (NEE)}
+Il \textbf{Mkt-RF} ha un aumento fino al valore di 0.8. Si evidenzia un valore negativo del fattore \textbf{HML}, confermando il fatto che l'azienda viene valutata per le aspettative di crescita, essendo l'energia rinnovabile ancora considerata un settore di innovazione. Inoltre l'impennata del fattore \textbf{RMW} (redditività), conferma il fatto che è un titolo difensivo, visto anche la distribuzione dei rendimenti molto concentrata attorno allo zero, con pochi eventi estremi.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{./images/NEE_rolling_exposure.png}
+    \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
+\end{figure}
+
+\chapter{Strategie di trading e backtesting -- Strategie dinamiche (CPPI)}
+
+\section{Confronto CPPI storica e simulazione Monte Carlo}
+
+Per ciascun titolo in portafoglio la strategia CPPI è stata simulata in due modalità:
+
+\begin{enumerate}
+    \item \textbf{Dati storici}: la CPPI è stata applicata ai rendimenti giornalieri dell'ultimo anno disponibile nel dataset.
+    \item \textbf{Simulazione Monte Carlo con GARCH(1,1)}: i parametri del modello GARCH(1,1) ($\mu$, $\omega$, $\alpha$, $\beta$) sono stati stimati sull'intera storia dei rendimenti logaritmici del titolo.  Sono stati poi generati 5\,000 percorsi di rendimenti giornalieri su 252 periodi, e la CPPI è stata applicata a ciascun percorso.
+\end{enumerate}
+
+La tabella seguente riporta le metriche comparative ottenute.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Confronto CPPI storica vs Monte Carlo (media su 5\,000 simulazioni)}
+\label{tab:cppi_hist_mc}
+\begin{tabular}{l|cc|cc}
+\hline
+\textbf{Titolo} & \multicolumn{2}{c|}{\textbf{Return Storico}} & \multicolumn{2}{c}{\textbf{Return MC (media)}} \\
+ & CPPI & B\&H & CPPI & B\&H \\
+\hline
+MSFT & $-5.16\%$ & $-4.51\%$ & $17.05\%$ & $31.53\%$ \\
+NVDA & $22.75\%$ & $50.64\%$ & $71.73\%$ & $117.06\%$ \\
+TSLA & $-0.08\%$ & $34.81\%$ & $10.58\%$ & $25.42\%$ \\
+GM   & $31.88\%$ & $57.46\%$ & $6.73\%$  & $15.56\%$ \\
+XOM  & $28.14\%$ & $50.65\%$ & $3.13\%$  & $8.81\%$ \\
+NEE  & $13.38\%$ & $34.55\%$ & $12.63\%$ & $25.18\%$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Di seguito i grafici della simulazione CPPI storica per ciascun titolo, che mostrano l'andamento del valore del portafoglio CPPI, della strategia Buy \& Hold e del floor nel corso dell'ultimo anno.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/MSFT_CPPI_graph.png}
+    \caption{CPPI -- Microsoft (MSFT)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NVDA_CPPI_graph.png}
+    \caption{CPPI -- NVIDIA (NVDA)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/TSLA_CPPI_graph.png}
+    \caption{CPPI -- Tesla (TSLA)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/GM_CPPI_graph.png}
+    \caption{CPPI -- General Motors (GM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/XOM_CPPI_graph.png}
+    \caption{CPPI -- ExxonMobil (XOM)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/NEE_CPPI_graph.png}
+    \caption{CPPI -- NextEra Energy (NEE)}
+\end{figure}
+
+\subsection{Interpretazione dei risultati}
+
+Il confronto tra le due metodologie evidenzia importanti differenze:
+
+\begin{itemize}
+    \item \textbf{Il risultato storico è una singola realizzazione}, fortemente condizionata dall'andamento effettivo del mercato nell'ultimo anno.  Ad esempio, MSFT ha registrato un rendimento negativo sia con CPPI che con B\&H nel periodo storico considerato, poiché il titolo ha subito un calo nell'ultimo anno.
+    
+    \item \textbf{Il risultato Monte Carlo rappresenta una distribuzione di possibili esiti futuri}, calibrata sui parametri statistici storici del titolo.  La media dei rendimenti MC è tipicamente positiva perché riflette il drift positivo stimato dal modello GARCH, rappresentando lo ``scenario medio'' a 1 anno.
+    
+    \item Per i titoli ad alta volatilità (NVDA, TSLA), la simulazione Monte Carlo mostra una dispersione molto ampia dei valori finali, con rendimenti massimi estremi. Per quanto riguarda i minimi, in tutti i titoli la CPPI dimostra il suo valore principale, \textbf{limitando la perdita massima}, pur sacrificando parte del potenziale guadagno.
+    
+    \item Per i titoli meno volatili, la distribuzione Monte Carlo è più concentrata e la differenza tra CPPI e B\&H è meno marcata.    
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/NVDA_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold per NVDA}
+            \label{fig:cppi_distribution_nvda}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/TSLA_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold per TSLA}
+            \label{fig:cppi_distribution_tsla}
+        \end{subfigure}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/MSFT_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold -- MSFT}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/GM_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold -- GM}
+        \end{subfigure}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/XOM_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold -- XOM}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./images/NEE_B&H_vs_CPPI.png}
+            \caption{CPPI vs Buy \& Hold -- NEE}
+        \end{subfigure}
+        \caption{Distribuzione valori finali MC: CPPI vs Buy \& Hold}
+    \end{figure}
+\end{itemize}
+
+\section{Confronto CPPI vs Buy \& Hold: rendimento ed efficienza}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Confronto di efficienza: CPPI vs Buy \& Hold (dati storici, 1 anno)}
+\label{tab:cppi_bh}
+\begin{tabular}{l|cc|cc|cc}
+\hline
+\textbf{Titolo} & \multicolumn{2}{c|}{\textbf{Rendimento}} & \multicolumn{2}{c|}{\textbf{Volatilità}} & \multicolumn{2}{c}{\textbf{Sharpe Ratio}} \\
+ & CPPI & B\&H & CPPI & B\&H & CPPI & B\&H \\
+\hline
+MSFT & $-5.16\%$ & $-4.51\%$ & $15.96\%$ & $26.32\%$ & $-0.49$ & $-0.19$ \\
+NVDA & $22.75\%$ & $50.64\%$ & $30.82\%$ & $41.17\%$ & $0.70$ & $1.11$ \\
+TSLA & $-0.08\%$ & $34.81\%$ & $32.46\%$ & $55.42\%$ & $0.04$ & $0.74$ \\
+GM   & $31.88\%$ & $57.46\%$ & $25.19\%$ & $34.79\%$ & $1.08$ & $1.37$ \\
+XOM  & $28.14\%$ & $50.65\%$ & $\mathbf{12.32\%}$ & $24.88\%$ & $\mathbf{1.78}$ & $1.63$ \\
+NEE  & $13.38\%$ & $34.55\%$ & $13.15\%$ & $25.83\%$ & $0.74$ & $1.14$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Analisi del rendimento}
+
+La strategia Buy \& Hold genera \textbf{sistematicamente rendimenti superiori} alla CPPI su tutti i titoli analizzati.  Questo risultato è atteso: la CPPI, per costruzione, alloca solo una frazione del portafoglio in equity (determinata dal cushion e dal moltiplicatore), mentre la B\&H è interamente investita.
+
+Il divario è particolarmente pronunciato per i titoli più volatili:
+\begin{itemize}
+    \item \textbf{TSLA}: la CPPI ha reso $-0.08\%$ contro il $+34.81\%$ della B\&H.  L'elevata volatilità di Tesla ha provocato frequenti ribilanciamenti con riduzione dell'esposizione nei momenti di ribasso, impedendo alla strategia di recuperare nei successivi rimbalzi.
+    \item \textbf{NVDA}: nonostante un rendimento CPPI positivo ($22.75\%$), la B\&H ha ottenuto più del doppio ($50.64\%$) grazie alla piena esposizione del titolo.
+\end{itemize}
+
+\subsection{Analisi dell'efficienza (Sharpe Ratio)}
+
+Se il rendimento assoluto favorisce la B\&H, l'analisi dell'efficienza tramite lo \textbf{Sharpe Ratio} offre un quadro più sfumato:
+
+\begin{itemize}
+    \item \textbf{XOM} è l'unico titolo dove la CPPI ha ottenuto uno Sharpe Ratio superiore alla B\&H ($1.78$ vs $1.63$).  Questo perché la volatilità CPPI ($12.32\%$) è meno della metà di quella B\&H ($24.88\%$), a fronte di un rendimento comunque elevato ($28.14\%$).  In altre parole, la CPPI ha generato un rendimento ``di qualità superiore'' per unità di rischio.
+    
+    \item Per gli altri titoli la B\&H mantiene uno Sharpe Ratio più elevato, ma la CPPI riduce costantemente la volatilità del 40--50\% rispetto alla B\&H (ad esempio, per NEE: $13.15\%$ vs $25.83\%$).
+    
+    \item L'effetto di protezione della CPPI è evidente osservando i \textbf{rendimenti minimi} nella simulazione Monte Carlo: la perdita massima della CPPI è sempre contenuta entro il $-18\%$ circa, mentre la B\&H può perdere fino al $-97\%$ del capitale nei casi peggiori (XOM, NEE).
+\end{itemize}
+
+La CPPI si configura quindi come una strategia meno rischiosa ma anche meno redditizia, che sacrifica parte del rendimento atteso in cambio di una protezione del capitale e di una significativa riduzione della volatilità.
+
+\section{Discussione dei parametri e possibili modifiche}
+
+\subsection{Moltiplicatore ($m$)}
+
+Il moltiplicatore è il parametro chiave che determina l'aggressività della strategia.  Con $m = 3$:
+\begin{itemize}
+    \item Se il cushion è 15 (portafoglio a 100, floor a 85), l'esposizione target in equity è $3 \times 15 = 45$, ovvero il 45\% del portafoglio.
+    \item Un moltiplicatore più alto (es.\ $m = 5$) aumenterebbe l'esposizione al 75\%, amplificando sia i guadagni che le perdite potenziali.
+    \item Un moltiplicatore più basso (es.\ $m = 2$) limiterebbe l'esposizione al 30\%, rendendo la strategia più conservativa.
+\end{itemize}
+
+\textbf{Rischio critico:} con $m$ elevato e un crollo improvviso (\textit{gap risk}), il valore del portafoglio può scendere sotto il floor prima che il ribilanciamento possa intervenire.  Questo rischio è particolarmente rilevante per titoli come TSLA e NVDA, caratterizzati da elevata volatilità giornaliera.
+
+\subsection{Floor ($F_0$)}
+
+Il floor determina il livello di protezione minima.  Con $F_0 = 85\%$:
+\begin{itemize}
+    \item Il cushion iniziale è solo il 15\% del capitale, limitando l'esposizione massima iniziale a $m \times 15\% = 45\%$.
+    \item \textbf{Un floor più alto} (es.\ 90\%): Un floor più alto garantisce una maggiore protezione del capitale iniziale, riducendo la perdita massima potenziale. Questo restringe il cuscinetto di sicurezza (cushion), costringendo il gestore a investire meno in azioni e asset rischiosi. Aumenta però il rischio di bloccare il portafoglio in titoli sicuri (cash-out) al primo ribasso, perdendo i successivi rialzi di mercato.
+    \item \textbf{Un floor più basso} (es.\ 75\%): cushion più ampio (25\%), esposizione iniziale del 75\%, ma protezione inferiore in caso di mercati fortemente ribassisti.
+\end{itemize}
+
+\subsection{Trading Filter}
+
+Il trading filter del 5\% evita ribilanciamenti eccessivi causati da micro-oscillazioni giornaliere:
+\begin{itemize}
+    \item \textbf{Senza filtro}: la strategia ribilancerebbe quasi ogni giorno, generando costi di transazione che erodono il capitale.  Con un costo dello 0.3\% per operazione, il costo annuo potrebbe superare il 5\% del portafoglio.
+    \item \textbf{Filtro troppo alto} (es.\ 15\%): i ribilanciamenti diventano troppo rari, e il portafoglio potrebbe restare sovra/sotto-esposto per periodi prolungati, aumentando il rischio di gap.
+\end{itemize}
+
+\subsection{Parametri GARCH ($\alpha$, $\beta$)}
+
+I parametri del modello GARCH(1,1) stimato riflettono la struttura della volatilità di ciascun titolo:
+\begin{itemize}
+    \item Un valore elevato di $\alpha$ (reattività agli shock) implica che un singolo giorno di forte rendimento negativo provoca un'impennata immediata della volatilità condizionale, generando percorsi Monte Carlo con cluster di alta volatilità.
+    \item Un valore elevato di $\beta$ (persistenza) indica che i regimi di alta o bassa volatilità tendono a durare nel tempo.
+    \item Per i titoli con $\alpha + \beta$ vicino a 1 (alta persistenza), le simulazioni Monte Carlo producono distribuzioni dei valori finali molto ampie, con code pesanti sia a destra che a sinistra.
+\end{itemize}
+
+\subsection{Possibili modifiche}
+
+Sulla base dei risultati ottenuti, si possono suggerire le seguenti modifiche:
+\begin{enumerate}
+    \item \textbf{Moltiplicatore dinamico}: anziché un $m$ costante, utilizzare un moltiplicatore che si riduce in periodi di alta volatilità (stimata dal GARCH) e aumenta in periodi di bassa volatilità.  Questo ridurrebbe il gap risk mantenendo la partecipazione ai rialzi.
+    \item \textbf{Floor crescente}: far crescere il floor al tasso risk-free ($r_f$) anziché mantenerlo costante, in modo da proteggere anche il potere d'acquisto del capitale.
+    \item \textbf{Tuning dei parametri}: testare combinazioni di parametri per identificare la configurazione ottimale per ciascun profilo di rischio. Es. ($m \in \{2, 3, 5\}$, $F_0 \in \{80\%, 85\%, 90\%\}$)
+\end{enumerate}
+
+\chapter{Costruzione e ottimizzazione del portafoglio}
+
+Creazione del portafoglio ottimale in termini di media-varianza utilizzando i primi 108 mesi di dati. L'analisi è stata condotta confrontando le ottimizzazioni basate sui rendimenti medi storici e sui rendimenti attesi derivati dal CAPM, confrontandoli con un portafoglio ugualmente pesato.
+
+\section{Risultati dell'Ottimizzazione}
+
+La tabella seguente riassume le metriche chiave (Rendimento, Volatilità, Sharpe Ratio e Beta) calcolate per ciascuno dei tre portafogli:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Portafoglio} & \textbf{Rendimento} & \textbf{Volatilità} & \textbf{Sharpe Ratio} & \textbf{Beta} \\
+\hline
+Ottimale (Storico Max Sharpe) & 39.89\% & 26.30\% & 1.37 & 1.28 \\
+Ottimale (CAPM Max Sharpe) & 11.96\% & 17.47\% & 0.47 & 1.01 \\
+Effettivo (Equally Weighted) & 30.17\% & 23.25\% & 1.13 & 1.24 \\
+\hline
+\end{tabular}
+\caption{Confronto delle metriche di rischio e rendimento dei portafogli calcolati}
+\end{table}
+
+\subsection{Analisi}
+Da questa sintesi emergono diverse considerazioni:
+\begin{enumerate}
+    \item \textbf{Rendimenti storici}: L'ottimizzazione basata puramente sui rendimenti storici produce il portafoglio con il rendimento atteso più alto in assoluto (39.89\%) e lo Sharpe Ratio più elevato (1.37). Tuttavia, l'algoritmo tende a sovrappesare quegli asset che hanno performato eccezionalmente bene nel campione storico analizzato. Inoltre, il Beta risulta elevato (1.28), indicando un'esposizione marcata alla volatilità del mercato e suggerendo un forte rischio di \textit{overfitting} statistico sui dati del passato.
+    
+    \item \textbf{Modello CAPM}: Utilizzando i rendimenti teorici stimati dal CAPM, i risultati dell'ottimizzazione diventano nettamente più prudenti. Il "Portafoglio Ottimale CAPM" riduce la volatilità attesa al 17.47\%, ottenendo uno Sharpe Ratio più conservativo (0.47) e un Beta di 1.01. Questo posiziona il rischio sistematico di tale portafoglio quasi perfettamente in linea con il mercato (Beta $\approx$ 1), a costo, però, di una significativa riduzione del rendimento atteso.
+    
+    \item \textbf{Portafoglio effettivo}: Il portafoglio pesato equamente è una soluzione intermedia tra i due portafogli ottimali appena calcolati. Raggiunge infatti uno Sharpe Ratio di 1.13 con una volatilità del 23.25\%, ponendosi come valida via di mezzo. 
+\end{enumerate}
+
+\subsection{Grafici - Frontiera Efficiente}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_historic_data.png}
+    \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti Storici)}
+    \label{fig:mc_historic}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_capm_data.png}
+    \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti CAPM)}
+    \label{fig:mc_capm}
+\end{figure}
+
+\textbf{Frontiera efficiente (CAPM vs Storico)}: Il grafico dei dati storici mostra una frontiera efficiente allungata con rendimenti estremi (oltre il 50\%) dovuti a performance passate eccezionali. Al contrario, il modello CAPM genera una nuvola più compatta e schiacciata, con rendimenti inferiori al 18\%. Questo dimostra l'effetto stabilizzatore del CAPM, che elimina i picchi positivi per offrire uno scenario futuro più realistico.
 
 \end{document}
