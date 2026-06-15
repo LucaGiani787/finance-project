@@ -506,7 +506,7 @@ Il \textbf{Mkt-RF} ha un aumento fino al valore di 0.8. Si evidenzia un valore n
     \caption{Esposizioni Rolling ai Fattori di Rischio Fama-French}
 \end{figure}
 
-\chapter{Strategie di trading e backtesting -- Strategie dinamiche}
+\chapter{Strategie di trading e backtesting -- Strategie dinamiche (CPPI)}
 
 \section{Confronto CPPI storica e simulazione Monte Carlo}
 
@@ -733,5 +733,54 @@ Sulla base dei risultati ottenuti, si possono suggerire le seguenti modifiche:
     \item \textbf{Tuning dei parametri}: testare combinazioni di parametri per identificare la configurazione ottimale per ciascun profilo di rischio. Es. ($m \in \{2, 3, 5\}$, $F_0 \in \{80\%, 85\%, 90\%\}$)
 \end{enumerate}
 
+\chapter{Costruzione e ottimizzazione del portafoglio}
+
+Creazione del portafoglio ottimale in termini di media-varianza utilizzando i primi 108 mesi di dati. L'analisi è stata condotta confrontando le ottimizzazioni basate sui rendimenti medi storici e sui rendimenti attesi derivati dal CAPM, confrontandoli con un portafoglio ugualmente pesato.
+
+\section{Risultati dell'Ottimizzazione}
+
+La tabella seguente riassume le metriche chiave (Rendimento, Volatilità, Sharpe Ratio e Beta) calcolate per ciascuno dei tre portafogli:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Portafoglio} & \textbf{Rendimento} & \textbf{Volatilità} & \textbf{Sharpe Ratio} & \textbf{Beta} \\
+\hline
+Ottimale (Storico Max Sharpe) & 39.89\% & 26.30\% & 1.37 & 1.28 \\
+Ottimale (CAPM Max Sharpe) & 11.96\% & 17.47\% & 0.47 & 1.01 \\
+Effettivo (Equally Weighted) & 30.17\% & 23.25\% & 1.13 & 1.24 \\
+\hline
+\end{tabular}
+\caption{Confronto delle metriche di rischio e rendimento dei portafogli calcolati}
+\end{table}
+
+\subsection{Analisi}
+Da questa sintesi emergono diverse considerazioni:
+\begin{enumerate}
+    \item \textbf{Rendimenti storici}: L'ottimizzazione basata puramente sui rendimenti storici produce il portafoglio con il rendimento atteso più alto in assoluto (39.89\%) e lo Sharpe Ratio più elevato (1.37). Tuttavia, l'algoritmo tende a sovrappesare quegli asset che hanno performato eccezionalmente bene nel campione storico analizzato. Inoltre, il Beta risulta elevato (1.28), indicando un'esposizione marcata alla volatilità del mercato e suggerendo un forte rischio di \textit{overfitting} statistico sui dati del passato.
+    
+    \item \textbf{Modello CAPM}: Utilizzando i rendimenti teorici stimati dal CAPM, i risultati dell'ottimizzazione diventano nettamente più prudenti. Il "Portafoglio Ottimale CAPM" riduce la volatilità attesa al 17.47\%, ottenendo uno Sharpe Ratio più conservativo (0.47) e un Beta di 1.01. Questo posiziona il rischio sistematico di tale portafoglio quasi perfettamente in linea con il mercato (Beta $\approx$ 1), a costo, però, di una significativa riduzione del rendimento atteso.
+    
+    \item \textbf{Portafoglio effettivo}: Il portafoglio pesato equamente è una soluzione intermedia tra i due portafogli ottimali appena calcolati. Raggiunge infatti uno Sharpe Ratio di 1.13 con una volatilità del 23.25\%, ponendosi come valida via di mezzo. 
+\end{enumerate}
+
+\subsection{Grafici - Frontiera Efficiente}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_historic_data.png}
+    \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti Storici)}
+    \label{fig:mc_historic}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_capm_data.png}
+    \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti CAPM)}
+    \label{fig:mc_capm}
+\end{figure}
+
+\textbf{Frontiera efficiente (CAPM vs Storico)}: Il grafico dei dati storici mostra una frontiera efficiente allungata con rendimenti estremi (oltre il 50\%) dovuti a performance passate eccezionali. Al contrario, il modello CAPM genera una nuvola più compatta e schiacciata, con rendimenti inferiori al 18\%. Questo dimostra l'effetto stabilizzatore del CAPM, che elimina i picchi positivi per offrire uno scenario futuro più realistico.
 
 \end{document}
