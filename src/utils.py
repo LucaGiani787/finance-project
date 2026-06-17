@@ -6,7 +6,28 @@ import matplotlib.dates as mdates
 
 
 # Creazione scatter plot con retta di regressione
-def plot_scatter(x, y, color_scatter, title, xlabel, ylabel):    
+def plot_scatter(x, y, color_scatter, title, xlabel, ylabel): 
+    """Crea uno scatter plot con retta di regressione. 
+    
+    Parametri:
+    ----------
+    x : np.ndarray
+        Array contenente i dati dell'asse x.
+    y : np.ndarray
+        Array contenente i dati dell'asse y.
+    color_scatter : str
+        Colore degli scatter plot.
+    title : str
+        Titolo del grafico.
+    xlabel : str
+        Etichetta dell'asse x.
+    ylabel : str
+        Etichetta dell'asse y.
+
+    Ritorna:
+    --------
+    None
+    """   
     # Scatter plot
     plt.scatter(x, y, color=color_scatter, alpha=0.4, s=15, edgecolors='none')
     
@@ -60,43 +81,7 @@ def calcola_esposizione_rolling_multi_titoli(
     pd.DataFrame
         Un DataFrame con MultiIndex (Data, Titolo) contenente i Beta e l'R2.
     """
-    # tutti_i_risultati = []
-
-    # # Iteriamo la regressione rolling per ognuno dei 6 titoli
-    # for asset in asset_cols:
-    #     risultati_asset = []
-    #     indici_temporali = []
-
-    #     for i in range(window, len(df) + 1):
-    #         finestra_dati = df.iloc[i - window : i]
-
-    #         Y = finestra_dati[asset]
-    #         X = finestra_dati[factor_cols]
-    #         X = sm.add_constant(X)
-
-    #         modello = sm.OLS(Y, X).fit()
-    #         metriche = modello.params.to_dict()
-    #         metriche["Titolo"] = asset 
-
-    #         risultati_asset.append(metriche)
-    #         indici_temporali.append(finestra_dati.index[-1])
-
-    #     # Creiamo il DataFrame temporaneo per il titolo corrente
-    #     if risultati_asset:
-    #         df_asset = pd.DataFrame(risultati_asset, index=indici_temporali)
-    #         tutti_i_risultati.append(df_asset)
-
-    # # Uniamo tutti i risultati in un unico DataFrame ordinato
-    # df_finale = pd.concat(tutti_i_risultati)
-    # df_finale.index.name = "Data"
-    # df_finale = df_finale.reset_index().set_index(["Data", "Titolo"])
-
-    # return df_finale
-
     tutti_i_risultati = []
-
-    # Creiamo la stringa della formula: "asset ~ fattore1 + fattore2 + ..."
-    # Nota: se i nomi delle colonne hanno spazi o caratteri speciali, usa Q("nome")
     formula_base = 'Q("Mkt-RF") + SMB + HML + RMW + CMA'
 
     for asset in asset_cols:
@@ -173,3 +158,29 @@ def plot_fama_french_rolling_exposure(df_exposure, stocks, factors):
         plt.tight_layout()
         # plt.savefig(f"./relazione/images/{titolo}_rolling_exposure.png", bbox_inches="tight")
         plt.show()
+
+
+def create_multivariate_dataset(dataset, look_back, target_index):
+    """Crea un dataset per il training di una rete LSTM multivariata.
+    
+    Parametri:
+    ----------
+    dataset : np.ndarray
+        Array contenente le features (incluso il target).
+    look_back : int
+        Numero di periodi da usare come input.
+    target_index : int
+        Indice della colonna da prevedere (target).
+    
+    Ritorna:
+    --------
+    X : np.ndarray
+        Array di input per la rete LSTM.
+    Y : np.ndarray
+        Array dei target.
+    """
+    X, Y = [], []
+    for i in range(len(dataset) - look_back):
+        X.append(dataset[i:(i + look_back), :])
+        Y.append(dataset[i + look_back, target_index])
+    return np.array(X), np.array(Y)
