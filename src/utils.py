@@ -184,3 +184,56 @@ def create_multivariate_dataset(dataset, look_back, target_index):
         X.append(dataset[i:(i + look_back), :])
         Y.append(dataset[i + look_back, target_index])
     return np.array(X), np.array(Y)
+
+
+def implement_macd_strategy(prices, data):    
+    """Implementazione della strategia MACD per il backtesting vettoriale.
+    
+    Parametri:
+    ----------
+    prices : np.ndarray
+        Array contenente i prezzi dei titoli.
+    data : np.ndarray
+        Array contenente i dati del MACD.
+    
+    Ritorna:
+    --------
+    buy_price : np.ndarray
+        Array contenente i prezzi di acquisto.
+    sell_price : np.ndarray
+        Array contenente i prezzi di vendita.
+    macd_signal : np.ndarray
+        Array contenente i segnali MACD.
+    """    
+    buy_price = []
+    sell_price = []
+    macd_signal = []
+    signal = 0
+
+    for i in range(len(data)):
+        if data['MACD'].iloc[i] > data['Signal line'].iloc[i]:
+            if signal != 1:
+                buy_price.append(prices.iloc[i])
+                sell_price.append(np.nan)
+                signal = 1
+                macd_signal.append(signal)
+            else:
+                buy_price.append(np.nan)
+                sell_price.append(np.nan)
+                macd_signal.append(0)
+        elif data['MACD'].iloc[i] < data['Signal line'].iloc[i]:
+            if signal != -1:
+                buy_price.append(np.nan)
+                sell_price.append(prices.iloc[i])
+                signal = -1
+                macd_signal.append(signal)
+            else:
+                buy_price.append(np.nan)
+                sell_price.append(np.nan)
+                macd_signal.append(0)
+        else:
+            buy_price.append(np.nan)
+            sell_price.append(np.nan)
+            macd_signal.append(0)
+            
+    return buy_price, sell_price, macd_signal

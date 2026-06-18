@@ -836,4 +836,144 @@ Questo comportamento è riconducibile a fattori legati alla natura dei dati:
 
 In questi scenari specifici, seppur l'Accuracy finale possa apparire superando il 50\%, la rete non sta facendo previsioni, ma sta applicando un bias statistico appreso dai dati passati.
 
+\chapter{Strategie di trading e backtesting -- MACD}
+
+\section{Analisi dei Segnali e dell'Equity Curve}
+
+Il comportamento della strategia è stato analizzato visivamente tramite due tipologie di grafici per ciascun titolo:
+\begin{itemize}
+    \item I grafici dei segnali (\texttt{\{ticker\}\_macd\_signals}), che mostrano i punti di entrata e uscita sovrapposti all'andamento del prezzo.
+    \item Le curve di equity (\texttt{\{ticker\}\_macd\_strategy}), che confrontano la crescita del capitale della strategia MACD rispetto alla semplice detenzione del titolo (Buy \& Hold).
+\end{itemize}
+
+\subsection{Performance rispetto al Buy \& Hold}
+
+Di seguito viene riportato un grafico per ciascun titolo che confronta la crescita del capitale della strategia MACD rispetto alla semplice detenzione del titolo (Buy \& Hold):
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_macd_strategy.png}
+        \caption{Equity Curve MSFT}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_macd_signals.png}
+        \caption{Segnali MACD MSFT}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_macd_strategy.png}
+        \caption{Equity Curve NVDA}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_macd_signals.png}
+        \caption{Segnali MACD NVDA}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_macd_strategy.png}
+        \caption{Equity Curve NEE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_macd_signals.png}
+        \caption{Segnali MACD NEE}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_macd_strategy.png}
+        \caption{Equity Curve TSLA}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_macd_signals.png}
+        \caption{Segnali MACD TSLA}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_macd_strategy.png}
+        \caption{Equity Curve XOM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_macd_signals.png}
+        \caption{Segnali MACD XOM}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_macd_strategy.png}
+        \caption{Equity Curve GM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_macd_signals.png}
+        \caption{Segnali MACD GM}
+    \end{subfigure}
+\end{figure}
+
+
+Osservando le Equity Curve dei titoli, in particolare per i titoli ad alta crescita come NVIDIA (NVDA) e Microsoft (MSFT), emerge chiaramente come la strategia MACD \textbf{sottoperformi sistematicamente} l'approccio Buy \& Hold.
+
+Nel caso TSLA, invece, la strategia MACD performa significativamente meglio rispetto al Buy \& Hold, portando il capitale a moltiplicarsi di oltre 32 volte, mentre il Buy \& Hold porta il capitale a moltiplicarsi di circa 22 volte.
+
+\subsection{Problematiche della Strategia}
+Le ragioni di questa marcata sottoperformance possono essere ricondotte a due limiti principali dell'indicatore MACD se applicato in mercati fortemente direzionali:
+
+\begin{enumerate}
+    \item \textbf{Uscite anticipate}: Il MACD è un indicatore \textit{lagging} (ritardato). Durante i forti e prolungati trend rialzisti (tipici dei titoli \textit{growth} tecnologici negli ultimi anni), i piccoli ritracciamenti causano l'incrocio al ribasso della Signal Line, generando segnali di vendita prematuri. La strategia rimane "fuori dal mercato" durante successive ampie fasi di rialzo, perdendo gran parte dei rendimenti cumulati.
+    \item \textbf{Falsi Segnali nei periodi di lateralità}: Durante le fasi in cui il mercato non ha un trend definito, l'indicatore produce continui incroci ravvicinati (falsi segnali). Questo erode il capitale a causa delle continue operazioni in perdita e dei ritardi nell'entrare a mercato.
+\end{enumerate}
+
+\section{Risultati Finali}
+Di seguito sono riportati i risultati finali della simulazione della strategia. 
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|cc|cc}
+\hline
+\textbf{Titolo} & \multicolumn{2}{c|}{\textbf{Rendimento (\%)}} & \multicolumn{2}{c}{\textbf{Sharpe Ratio}} \\
+ & MACD & B\&H & MACD & B\&H \\
+\hline
+MSFT  & $5.99$ & $638.66$ & $0.03$ & $0.75$ \\
+NVDA  & $783.06$ & $18836.59$ & $0.65$ & $1.06$ \\
+TSLA  & $3202.55$ & $2219.36$ & $0.86$ & $0.54$ \\
+GM    & $116.70$ & $184.85$ & $0.31$ & $0.29$ \\
+XOM   & $135.51$ & $217.12$ & $0.44$ & $0.41$ \\
+NEE   & $174.25$ & $301.60$ & $0.61$ & $0.55$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Come si evince dai dati, la strategia MACD riduce quasi sempre il rendimento complessivo rispetto al Buy \& Hold. Fanno eccezione i titoli con altissima volatilità e frequenti inversioni di trend come \textbf{Tesla (TSLA)}, per il quale la strategia MACD è riuscita a generare un rendimento superiore ($3202.55\%$ contro $2219.36\%$) proteggendo il capitale durante i ribassi più profondi e migliorando sensibilmente lo Sharpe Ratio ($0.86$ contro $0.54$). Inoltre, per GM, XOM e NEE la strategia migliora leggermente l'efficienza (Sharpe Ratio), pur sacrificando parte del rendimento.
+
 \end{document}
