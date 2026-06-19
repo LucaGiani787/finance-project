@@ -139,6 +139,26 @@ Ad esempio, è stato utilizzato \texttt{pandas.DataFrame.xs()} per dividere il D
 Per tutti i titoli presi in considerazione si può affermare che i rispettivi grafici oscillano costantemente attorno a una media che si colloca vicina allo zero.
 Inoltre, è possibile notare lo shock di inizio 2020, dovuto alla pandemia, che ha portato a una forte volatilità, con rendimenti estremamente negativi in un breve periodo di tempo, ma anche picchi di rendimenti positivi.
 
+Di seguito viene riportata la tabella dei rendimenti medi annualizzati e i rendimenti cumulati.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|c|c}
+\hline
+\textbf{Titolo} & \textbf{CAGR (\%)} & \textbf{Rendimento Cumulato} \\
+\hline
+MSFT  & $22.12$    & $7.38$    \\
+NVDA  & $68.89$  & $189.36$  \\
+TSLA  & $36.92$ & $23.19$   \\
+GM    & $11.03$  & $2.84$    \\
+XOM   & $12.23$  & $3.17$    \\
+NEE   & $14.91$  & $4.01$    \\
+\hline
+\end{tabular}
+\end{table}
+
+
 
 \subsection{Settore tecnologico}
 Un analisi visiva dei grafici dei titoli di Nvidia e Microsoft mostra una correlazione positiva visto che l'andamento dei rendimenti è quasi simile, con la sola differenza che Nvidia mostra un numero di picchi di rendimenti, sia positivi che negativi, maggiore.
@@ -335,6 +355,8 @@ Sulla base della matrice di correlazione dei rendimenti mensili, si identificano
     \includegraphics[width=0.7\textwidth]{./images/correlation_matrix.png}
     \caption{Matrice di Correlazione dei Rendimenti Mensili}
 \end{figure}
+
+I titoli più importanti da evidenziare sono TSLA e NVDA, che si distinguono nettamente per la volatilità più elevata del gruppo e rappresentano la componente a maggior rischio. Al contrario, MSFT e NEE mostrano le varianze più contenute, confermandosi come i pilastri difensivi e più stabili. Tra i due estremi si colloca GM, che manifesta un rischio intermedio ma comunque significativo a causa della natura ciclica del suo business.
 
 \subsection{Valori Estremi (Massimi e Minimi)}
 \begin{itemize}
