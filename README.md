@@ -31,13 +31,11 @@ pip install -r requirements.txt
 
 ### Running the Project
 
-After installing dependencies, **select the virtual environment as python interpreter** as Jupyter kernel and execute the project:
+After installing dependencies, **select the virtual environment as python interpreter** as Jupyter kernel and execute the notebook:
 
 ```bash
-python main.py
+jupyter notebook
 ```
-
-(Replace `main.py` with the appropriate entry point for this project)
 
 ### Deactivating the Virtual Environment
 

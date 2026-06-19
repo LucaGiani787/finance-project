@@ -783,4 +783,197 @@ Da questa sintesi emergono diverse considerazioni:
 
 \textbf{Frontiera efficiente (CAPM vs Storico)}: Il grafico dei dati storici mostra una frontiera efficiente allungata con rendimenti estremi (oltre il 50\%) dovuti a performance passate eccezionali. Al contrario, il modello CAPM genera una nuvola più compatta e schiacciata, con rendimenti inferiori al 18\%. Questo dimostra l'effetto stabilizzatore del CAPM, che elimina i picchi positivi per offrire uno scenario futuro più realistico.
 
+\chapter{Forecasting con Reti Neurali LSTM (Dati Mensili)}
+
+\section{Previsione del Prezzo}
+Inizialmente, il modello LSTM multivariato è stato addestrato per prevedere il valore esatto del prezzo di chiusura futuro (problema di regressione). Il modello riceve in input una finestra temporale (lookback) di dati mensili e restituisce il prezzo stimato.
+
+I risultati metrici (Root Mean Squared Error - RMSE, Mean Absolute Error - MAE, e Mean Absolute Percentage Error - MAPE) riflettono la difficoltà di questo compito, specialmente in un orizzonte temporale mensile caratterizzato da forti variazioni di mercato e trend non sempre lineari.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/monthly_forecasting_price_output.png}
+    \caption{Metriche di errore per la previsione del prezzo (Regressione)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/monthly_forecasting_price_graphs.png}
+    \caption{Confronto tra Prezzo Reale e Previsione LSTM (Regressione)}
+\end{figure}
+
+Osservando i grafici, è evidente come il modello LSTM (linea tratteggiata rossa) riesca a catturare la \textit{tendenza generale} del prezzo reale (linea blu), ma tenda a sottostimare i picchi e a reagire con un certo ritardo ai movimenti improvvisi. Ad esempio, nel caso di NVDA, la rete intercetta il trend rialzista, ma non ne cattura l'entità della salita. Nel caso di TSLA, a fronte di enormi fluttuazioni del prezzo reale, la curva prevista risulta estremamente appiattita e reattiva solo parzialmente.
+
+Questa dinamica conferma che la previsione puntuale del prezzo nei mercati finanziari, pur fornendo un'indicazione di massima sul trend, è difficilmente utilizzabile per una strategia di trading, in quanto l'errore assoluto in termini di prezzo può essere ampio.
+
+\section{Previsione della Direzione}
+
+Al fine di rendere l'output del modello più utile dal punto di vista operativo, l'obiettivo dell'addestramento è stato modificato in un problema di \textbf{classificazione binaria}: cercando di prevedere la direzione futura di chiusura del mercato nel mese successivo. Il target è stato impostato a 1 se il prezzo di chiusura futuro è superiore all'ultimo prezzo noto, e 0 altrimenti.
+
+L'architettura della rete è stata adattata sostituendo l'ultimo livello con una funzione di attivazione \textit{sigmoid} e ottimizzando la funzione di perdita \textit{binary crossentropy}. La metrica di valutazione di riferimento diventa quindi l'Accuracy (Accuratezza Direzionale).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/monthly_forecasting_direction_output.png}
+    \caption{Accuracy Direzionale del modello (Classificazione)}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{./images/monthly_forecasting_direction_graphs.png}
+    \caption{Confronto tra Direzione Reale e Direzione Prevista (1 = Rialzo, 0 = Ribasso)}
+\end{figure}
+
+\subsection{Analisi delle Previsioni Costanti (Constant Output Problem)}
+
+Osservando i grafici della classificazione direzionale, emerge un fenomeno noto e tipico nell'addestramento di reti neurali su serie storiche finanziarie: per alcuni titoli, la rete LSTM tende a prevedere \textit{esclusivamente} la classe 0 oppure la classe 1 per l'intera durata del set di test (visibile come una linea piatta rossa sui valori 0 o 1). 
+
+Questo comportamento è riconducibile a fattori legati alla natura dei dati:
+\begin{enumerate}
+    \item \textbf{Sbilanciamento del Trend (Class Imbalance)}: Se durante il lungo periodo di addestramento un titolo ha vissuto un trend fortemente direzionale (come nel caso di NVDA), la stragrande maggioranza dei campioni di training apparterrà alla classe 1 (rialzo). In fase di ottimizzazione, la rete neurale impara matematicamente che prevedere sempre "1" è la strategia "sicura" che minimizza l'errore medio sul lungo periodo. La rete cade in un minimo locale "banale", diventando un modello \textit{naive} che si limita a scommettere ciecamente sul trend dominante storico.
+    \item \textbf{Poco Segnale}: Essendo i mercati finanziari estremamente rumorosi, le features fornite in input (prezzi storici, RSI, EMA, Volumi) non contengono un segnale predittivo sufficientemente forte per giustificare in modo chiaro le inversioni di tendenza, quindi la rete non riesce a estrarre pattern matematici complessi decidendo di appiattire l'output sulla classe statisticamente più probabile.
+\end{enumerate}
+
+In questi scenari specifici, seppur l'Accuracy finale possa apparire superando il 50\%, la rete non sta facendo previsioni, ma sta applicando un bias statistico appreso dai dati passati.
+
+\chapter{Strategie di trading e backtesting -- MACD}
+
+\section{Analisi dei Segnali e dell'Equity Curve}
+
+Il comportamento della strategia è stato analizzato visivamente tramite due tipologie di grafici per ciascun titolo:
+\begin{itemize}
+    \item I grafici dei segnali (\texttt{\{ticker\}\_macd\_signals}), che mostrano i punti di entrata e uscita sovrapposti all'andamento del prezzo.
+    \item Le curve di equity (\texttt{\{ticker\}\_macd\_strategy}), che confrontano la crescita del capitale della strategia MACD rispetto alla semplice detenzione del titolo (Buy \& Hold).
+\end{itemize}
+
+\subsection{Performance rispetto al Buy \& Hold}
+
+Di seguito viene riportato un grafico per ciascun titolo che confronta la crescita del capitale della strategia MACD rispetto alla semplice detenzione del titolo (Buy \& Hold):
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_macd_strategy.png}
+        \caption{Equity Curve MSFT}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/MSFT_macd_signals.png}
+        \caption{Segnali MACD MSFT}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_macd_strategy.png}
+        \caption{Equity Curve NVDA}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NVDA_macd_signals.png}
+        \caption{Segnali MACD NVDA}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_macd_strategy.png}
+        \caption{Equity Curve NEE}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/NEE_macd_signals.png}
+        \caption{Segnali MACD NEE}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_macd_strategy.png}
+        \caption{Equity Curve TSLA}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/TSLA_macd_signals.png}
+        \caption{Segnali MACD TSLA}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_macd_strategy.png}
+        \caption{Equity Curve XOM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/XOM_macd_signals.png}
+        \caption{Segnali MACD XOM}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_macd_strategy.png}
+        \caption{Equity Curve GM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./images/GM_macd_signals.png}
+        \caption{Segnali MACD GM}
+    \end{subfigure}
+\end{figure}
+
+
+Osservando le Equity Curve dei titoli, in particolare per i titoli ad alta crescita come NVIDIA (NVDA) e Microsoft (MSFT), emerge chiaramente come la strategia MACD \textbf{sottoperformi sistematicamente} l'approccio Buy \& Hold.
+
+Nel caso TSLA, invece, la strategia MACD performa significativamente meglio rispetto al Buy \& Hold, portando il capitale a moltiplicarsi di oltre 32 volte, mentre il Buy \& Hold porta il capitale a moltiplicarsi di circa 22 volte.
+
+\subsection{Problematiche della Strategia}
+Le ragioni di questa marcata sottoperformance possono essere ricondotte a due limiti principali dell'indicatore MACD se applicato in mercati fortemente direzionali:
+
+\begin{enumerate}
+    \item \textbf{Uscite anticipate}: Il MACD è un indicatore \textit{lagging} (ritardato). Durante i forti e prolungati trend rialzisti (tipici dei titoli \textit{growth} tecnologici negli ultimi anni), i piccoli ritracciamenti causano l'incrocio al ribasso della Signal Line, generando segnali di vendita prematuri. La strategia rimane "fuori dal mercato" durante successive ampie fasi di rialzo, perdendo gran parte dei rendimenti cumulati.
+    \item \textbf{Falsi Segnali nei periodi di lateralità}: Durante le fasi in cui il mercato non ha un trend definito, l'indicatore produce continui incroci ravvicinati (falsi segnali). Questo erode il capitale a causa delle continue operazioni in perdita e dei ritardi nell'entrare a mercato.
+\end{enumerate}
+
+\section{Risultati Finali}
+Di seguito sono riportati i risultati finali della simulazione della strategia. 
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{l|cc|cc}
+\hline
+\textbf{Titolo} & \multicolumn{2}{c|}{\textbf{Rendimento (\%)}} & \multicolumn{2}{c}{\textbf{Sharpe Ratio}} \\
+ & MACD & B\&H & MACD & B\&H \\
+\hline
+MSFT  & $5.99$ & $638.66$ & $0.03$ & $0.75$ \\
+NVDA  & $783.06$ & $18836.59$ & $0.65$ & $1.06$ \\
+TSLA  & $3202.55$ & $2219.36$ & $0.86$ & $0.54$ \\
+GM    & $116.70$ & $184.85$ & $0.31$ & $0.29$ \\
+XOM   & $135.51$ & $217.12$ & $0.44$ & $0.41$ \\
+NEE   & $174.25$ & $301.60$ & $0.61$ & $0.55$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Come si evince dai dati, la strategia MACD riduce quasi sempre il rendimento complessivo rispetto al Buy \& Hold. Fanno eccezione i titoli con altissima volatilità e frequenti inversioni di trend come \textbf{Tesla (TSLA)}, per il quale la strategia MACD è riuscita a generare un rendimento superiore ($3202.55\%$ contro $2219.36\%$) proteggendo il capitale durante i ribassi più profondi e migliorando sensibilmente lo Sharpe Ratio ($0.86$ contro $0.54$). Inoltre, per GM, XOM e NEE la strategia migliora leggermente l'efficienza (Sharpe Ratio), pur sacrificando parte del rendimento.
+
 \end{document}
