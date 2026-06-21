@@ -761,6 +761,25 @@ Creazione del portafoglio ottimale in termini di media-varianza utilizzando i pr
 
 \section{Risultati dell'Ottimizzazione}
 
+La tabella seguente riporta i pesi dei portafogli analizzati.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Portafoglio} & \textbf{GM} & \textbf{MSFT} & \textbf{NEE} & \textbf{NVDA} & \textbf{TSLA} & \textbf{XOM} \\
+\hline
+Ottimale (Storico Max Sharpe) & 0.0000 & 0.2025 & 0.2180 & 0.3972 & 0.0820 & 0.1003 \\
+Ottimale (CAPM Max Sharpe)    & 0.1591 & 0.4613 & 0.1310 & 0.0423 & 0.0338 & 0.1725 \\
+Effettivo (Equally Weighted)   & 0.1667 & 0.1667 & 0.1667 & 0.1667 & 0.1667 & 0.1667 \\
+Minima Varianza     & 0.0083 & 0.3580 & 0.3827 & 0.0000 & 0.0000 & 0.2510 \\
+\hline
+\end{tabular}
+\caption{Confronto dei pesi dei portafogli calcolati (Storico e CAPM)}
+\end{table}
+
+
+
 La tabella seguente riassume le metriche chiave (Rendimento, Volatilità, Sharpe Ratio e Beta) calcolate per ciascuno dei tre portafogli:
 
 \begin{table}[h!]
@@ -789,14 +808,14 @@ Da questa sintesi emergono diverse considerazioni:
 
 \subsection{Grafici - Frontiera Efficiente}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_historic_data.png}
     \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti Storici)}
     \label{fig:mc_historic}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/portfolio_simulation_capm_data.png}
     \caption{Simulazione Monte Carlo e Frontiera Efficiente (Rendimenti CAPM)}

@@ -3,18 +3,46 @@ import pandas as pd
 import scipy.optimize as sco
 
 def portfolio_performance(weights, mean_returns, cov_matrix):
-    """Calcola rendimento e rischio atteso di un portafoglio dati i pesi."""
+    """Calcola rendimento e rischio atteso di un portafoglio dati i pesi.
+
+    Args:
+        weights (np.ndarray): Pesi del portafoglio.
+        mean_returns (np.ndarray): Rendimenti medi.
+        cov_matrix (np.ndarray): Matrice di covarianza.
+
+    Returns:
+        tuple: (rendimento, rischio)
+    """
     returns = np.sum(mean_returns * weights)
     std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
     return returns, std
 
 def negative_sharpe(weights, mean_returns, cov_matrix, risk_free_rate):
-    """Calcola l'indice di Sharpe negativo (per minimizzazione)."""
+    """Calcola l'indice di Sharpe negativo (per minimizzazione).
+
+    Args:
+        weights (np.ndarray): Pesi del portafoglio.
+        mean_returns (np.ndarray): Rendimenti medi.
+        cov_matrix (np.ndarray): Matrice di covarianza.
+        risk_free_rate (float): Tasso risk-free.
+
+    Returns:
+        float: Indice di Sharpe negativo.
+    """
     p_ret, p_std = portfolio_performance(weights, mean_returns, cov_matrix)
     return -(p_ret - risk_free_rate) / p_std
 
 def minimize_volatility(weights, mean_returns, cov_matrix):
-    """Calcola la volatilità (per minimizzazione)."""
+    """Calcola la volatilità (per minimizzazione).
+
+    Args:
+        weights (np.ndarray): Pesi del portafoglio.
+        mean_returns (np.ndarray): Rendimenti medi.
+        cov_matrix (np.ndarray): Matrice di covarianza.
+
+    Returns:
+        float: Volatilità del portafoglio.
+    """
     p_ret, p_std = portfolio_performance(weights, mean_returns, cov_matrix)
     return p_std
 
@@ -22,6 +50,14 @@ def optimize_analytical(mean_returns, cov_matrix, risk_free_rate=0.01):
     """
     Ottimizzazione analitica usando scipy.optimize.
     Trova i pesi del portafoglio con Max Sharpe e Min Volatilità.
+
+    Args:
+        mean_returns (np.ndarray): Rendimenti medi.
+        cov_matrix (np.ndarray): Matrice di covarianza.
+        risk_free_rate (float): Tasso risk-free.
+
+    Returns:
+        dict: Dizionario contenente i pesi e le metriche dei portafogli max_sharpe e min_vol.
     """
     num_assets = len(mean_returns)
     args_sharpe = (mean_returns, cov_matrix, risk_free_rate)
@@ -60,6 +96,15 @@ def optimize_montecarlo(mean_returns, cov_matrix, num_portfolios=40000, risk_fre
     """
     Simulazione Monte Carlo per la stima della frontiera efficiente.
     Genera num_portfolios portafogli con pesi casuali normalizzati a 1.
+
+    Args:
+        mean_returns (np.ndarray): Rendimenti medi.
+        cov_matrix (np.ndarray): Matrice di covarianza.
+        num_portfolios (int): Numero di portafogli da generare.
+        risk_free_rate (float): Tasso risk-free.
+
+    Returns:
+        tuple: (risultati, pesi_record)
     """
     num_assets = len(mean_returns)
     results = np.zeros((3, num_portfolios))
@@ -79,7 +124,15 @@ def optimize_montecarlo(mean_returns, cov_matrix, num_portfolios=40000, risk_fre
     return results, weights_record
 
 def get_mc_optimal_portfolios(results, weights_record):
-    """Estrae dal risultato Monte Carlo i portafogli max_sharpe e min_vol"""
+    """Estrae dal risultato Monte Carlo i portafogli max_sharpe e min_vol
+
+    Args:
+        results (np.ndarray): Risultati del Monte Carlo.
+        weights_record (list): Pesi del portafoglio.
+
+    Returns:
+        dict: Dizionario contenente i pesi e le metriche dei portafogli max_sharpe e min_vol.
+    """
     max_sharpe_idx = np.argmax(results[2])
     min_vol_idx = np.argmin(results[1])
     
@@ -99,5 +152,13 @@ def get_mc_optimal_portfolios(results, weights_record):
     }
 
 def calculate_portfolio_beta(weights, asset_betas):
-    """Calcola il Beta del portafoglio come combinazione lineare dei beta."""
+    """Calcola il Beta del portafoglio come combinazione lineare dei beta.
+
+    Args:
+        weights (np.ndarray): Pesi del portafoglio.
+        asset_betas (np.ndarray): Beta degli asset.
+
+    Returns:
+        float: Beta del portafoglio.
+    """
     return np.dot(weights, asset_betas)

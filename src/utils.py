@@ -9,24 +9,16 @@ import matplotlib.dates as mdates
 def plot_scatter(x, y, color_scatter, title, xlabel, ylabel): 
     """Crea uno scatter plot con retta di regressione. 
     
-    Parametri:
-    ----------
-    x : np.ndarray
-        Array contenente i dati dell'asse x.
-    y : np.ndarray
-        Array contenente i dati dell'asse y.
-    color_scatter : str
-        Colore degli scatter plot.
-    title : str
-        Titolo del grafico.
-    xlabel : str
-        Etichetta dell'asse x.
-    ylabel : str
-        Etichetta dell'asse y.
+    Args:
+        x (np.ndarray): coordinate x
+        y (np.ndarray): coordinate y
+        color_scatter (str): colore dei punti
+        title (str): titolo del grafico
+        xlabel (str): etichetta dell'asse x
+        ylabel (str): etichetta dell'asse y
 
-    Ritorna:
-    --------
-    None
+    Returns:
+        None
     """   
     # Scatter plot
     plt.scatter(x, y, color=color_scatter, alpha=0.4, s=15, edgecolors='none')
@@ -64,22 +56,14 @@ def calcola_esposizione_rolling_multi_titoli(
 ):
     """Calcola l'esposizione rolling ai fattori per più titoli singoli.
 
-    Parametri:
-    ----------
-    df : pd.DataFrame
-        DataFrame con DatetimeIndex contenente sia i rendimenti in eccesso
-        dei 6 titoli che i fattori di rischio Fama-French.
-    asset_cols : list
-        Lista con i nomi delle colonne dei 6 titoli 
-    factor_cols : list
-        Lista con i nomi delle colonne dei fattori 
-    window : int
-        Finestra mobile in numero di periodi (mesi o giorni).
+    Args:
+        df (pd.DataFrame): dataframe con DatetimeIndex contenente sia i rendimenti in eccesso
+        asset_cols (list): lista con i nomi delle colonne dei 6 titoli 
+        factor_cols (list): lista con i nomi delle colonne dei fattori 
+        window (int): finestra mobile in numero di periodi (mesi o giorni).
 
-    Ritorna:
-    -------
-    pd.DataFrame
-        Un DataFrame con MultiIndex (Data, Titolo) contenente i Beta e l'R2.
+    Returns:
+        pd.DataFrame:
     """
     tutti_i_risultati = []
     formula_base = 'Q("Mkt-RF") + SMB + HML + RMW + CMA'
@@ -91,7 +75,7 @@ def calcola_esposizione_rolling_multi_titoli(
         for i in range(window, len(df) + 1):
             finestra_dati = df.iloc[i - window : i]
 
-            # Definiamo la formula specifica per l'asset corrente
+            # formula specifica per l'asset corrente
             formula = f"{asset} ~ {formula_base}"
 
             # smf.ols vuole la formula e l'intero DataFrame della finestra
@@ -117,14 +101,13 @@ def calcola_esposizione_rolling_multi_titoli(
 def plot_fama_french_rolling_exposure(df_exposure, stocks, factors):
     """Genera i grafici delle esposizioni rolling ai fattori Fama-French per una lista di titoli.
 
-    Parametri:
-    ----------
-    df_exposure : pd.DataFrame
-        DataFrame con MultiIndex contenente il livello 'Titolo'.
-    stocks : list
-        Lista dei titoli da ciclare e plottare.
-    factors : list
-        Lista dei fattori Fama-French da includere nel grafico.
+    Args:
+        df_exposure (pd.DataFrame): dataframe con MultiIndex contenente il livello 'Titolo'
+        stocks (list): lista dei titoli da ciclare e plottare
+        factors (list): lista dei fattori Fama-French da includere nel grafico
+
+    Returns:
+        None
     """
     for titolo in stocks:
         # Estrazione e conversione indice
@@ -163,21 +146,16 @@ def plot_fama_french_rolling_exposure(df_exposure, stocks, factors):
 def create_multivariate_dataset(dataset, look_back, target_index):
     """Crea un dataset per il training di una rete LSTM multivariata.
     
-    Parametri:
-    ----------
-    dataset : np.ndarray
-        Array contenente le features (incluso il target).
-    look_back : int
-        Numero di periodi da usare come input.
-    target_index : int
-        Indice della colonna da prevedere (target).
+    Args:
+        dataset (np.ndarray): array contenente le features (incluso il target)
+        look_back (int): numero di periodi da usare come input
+        target_index (int): indice della colonna da prevedere (target)
     
-    Ritorna:
-    --------
-    X : np.ndarray
-        Array di input per la rete LSTM.
-    Y : np.ndarray
-        Array dei target.
+    Returns:
+        X (np.ndarray):
+            Array di input per la rete LSTM.
+        Y (np.ndarray):
+            Array dei target.
     """
     X, Y = [], []
     for i in range(len(dataset) - look_back):
@@ -189,21 +167,17 @@ def create_multivariate_dataset(dataset, look_back, target_index):
 def implement_macd_strategy(prices, data):    
     """Implementazione della strategia MACD per il backtesting vettoriale.
     
-    Parametri:
-    ----------
-    prices : np.ndarray
-        Array contenente i prezzi dei titoli.
-    data : np.ndarray
-        Array contenente i dati del MACD.
+    Args:
+        prices (np.ndarray): array contenente i prezzi dei titoli
+        data (np.ndarray): array contenente i dati del MACD
     
-    Ritorna:
-    --------
-    buy_price : np.ndarray
-        Array contenente i prezzi di acquisto.
-    sell_price : np.ndarray
-        Array contenente i prezzi di vendita.
-    macd_signal : np.ndarray
-        Array contenente i segnali MACD.
+    Returns:
+        buy_price (np.ndarray):
+            Array contenente i prezzi di acquisto.
+        sell_price (np.ndarray):
+            Array contenente i prezzi di vendita.
+        macd_signal (np.ndarray):
+            Array contenente i segnali MACD.
     """    
     buy_price = []
     sell_price = []

@@ -7,6 +7,18 @@ def fit_garch(returns):
     """
     Stima i parametri di un modello GARCH(1,1) sui rendimenti.
     Ritorna i parametri mu, omega, alpha, beta e la volatilità annualizzata stimata.
+
+    Args:
+        returns (pd.Series): Rendimenti giornalieri.
+
+    Returns:
+        dict: Parametri stimati.  
+            mu: media dei rendimenti
+            omega: parametro omega del GARCH(1,1)
+            alpha: parametro alpha del GARCH(1,1)
+            beta: parametro beta del GARCH(1,1)
+            ann_vol: volatilità annualizzata stimata
+        res: oggetto del modello GARCH(1,1) stimato
     """
     # Rimuovi eventuali NaN
     rets = returns.dropna()
@@ -38,6 +50,15 @@ def fit_garch(returns):
 def simulate_garch_paths(params, s0, N_sim=5000, periodi=252):
     """
     Simula percorsi di prezzo futuri usando il modello GARCH(1,1) stimato.
+
+    Args:
+        params (dict): Parametri stimati.
+        s0 (float): Valore iniziale del portafoglio.
+        N_sim (int): Numero di simulazioni.
+        periodi (int): Numero di periodi.
+
+    Returns:
+        np.ndarray: Array di rendimenti simulati.
     """
     mu = params['mu']
     omega = params['omega']
@@ -48,7 +69,7 @@ def simulate_garch_paths(params, s0, N_sim=5000, periodi=252):
     returns_sim = np.zeros((N_sim, periodi))
     variances_sim = np.zeros((N_sim, periodi))
     
-    # Valori iniziali (usiamo la varianza incondizionata come partenza se non specificato)
+    # Valori iniziali 
     uncond_var = omega / (1 - alpha - beta) if (alpha + beta < 1) else omega
     
     # Genera shock casuali
@@ -68,6 +89,17 @@ def cppi_historical(returns, S0=100, mdo=85, mult=3, trading_filter=0.05, costo_
     """
     Esegue la simulazione CPPI sui rendimenti storici.
     Assume rendimenti giornalieri e calcola la strategia passo per passo.
+
+    Args:
+        returns (pd.Series): Rendimenti giornalieri.
+        S0 (float): Valore iniziale del portafoglio.
+        mdo (int): Minimum acceptable drawdown in percent.
+        mult (int): Multiplier for the cushion.
+        trading_filter (float): Trading filter percentage.
+        costo_equity (float): Cost of equity transactions.
+
+    Returns:
+        pd.DataFrame: Risultati della simulazione.
     """
     T = len(returns)
     
@@ -92,11 +124,8 @@ def cppi_historical(returns, S0=100, mdo=85, mult=3, trading_filter=0.05, costo_
     # Loop su ogni giorno
     for t in range(1, T):
         # 1. Aggiorna il valore degli asset con i rendimenti di t
-        # Rendimento dell'equity = returns.iloc[t] (assumiamo log o simple returns? assumiamo simple per ora)
         r_eq = returns.iloc[t]
-        
-        # Rendimento cash (assumiamo rf = 0 per semplicità, o piccolo)
-        r_cash = 0.0 # 0% giornaliero
+        r_cash = 0.0
         
         # Aggiorna posizioni prima del rebalancing
         eq_val_pre = equity_alloc[t-1] * (1 + r_eq)
@@ -104,12 +133,7 @@ def cppi_historical(returns, S0=100, mdo=85, mult=3, trading_filter=0.05, costo_
         portf_val[t] = eq_val_pre + cash_val_pre
         
         # 2. Ricalcola Floor e Cushion
-        # Il floor cresce al tasso risk free (assumiamo costante o zero per ora)
-        floor_arr[t] = floor_arr[t-1] * (1 + r_cash) 
-        
-        # Assicuriamoci che il floor non superi mdo% del valore massimo raggiunto (opzionale, ma comune)
-        # Qui manteniamo un floor costante o in crescita
-        
+        floor_arr[t] = floor_arr[t-1] * (1 + r_cash)         
         cushion_arr[t] = max(0, portf_val[t] - floor_arr[t])
         
         # 3. Calcola nuova allocazione target
@@ -154,7 +178,18 @@ def cppi_historical(returns, S0=100, mdo=85, mult=3, trading_filter=0.05, costo_
 def cppi_montecarlo(returns_matrix, S0=100, mdo=85, mult=3, trading_filter=0.05, costo_equity=0.003):
     """
     Esegue la simulazione CPPI su multipli percorsi Monte Carlo in modo vettorializzato o veloce.
-    returns_matrix: np.ndarray (N_sim, periodi)
+
+    Args:
+        returns_matrix (np.ndarray): Array di rendimenti simulati. 
+            Formato: (N_sim, periodi)
+        S0 (float): Valore iniziale del portafoglio.
+        mdo (int): Minimum acceptable drawdown in percent.
+        mult (int): Multiplier for the cushion.
+        trading_filter (float): Trading filter percentage.
+        costo_equity (float): Cost of equity transactions.
+
+    Returns:
+        np.ndarray: Array di valori finali del portafoglio.
     """
     N_sim, T = returns_matrix.shape
     
@@ -208,6 +243,13 @@ def cppi_montecarlo(returns_matrix, S0=100, mdo=85, mult=3, trading_filter=0.05,
 def buy_and_hold(returns, S0=100):
     """
     Calcola il valore del portafoglio per una strategia Buy&Hold semplice
+
+    Args:
+        returns (pd.Series): Rendimenti giornalieri.
+        S0 (float): Valore iniziale del portafoglio.
+
+    Returns:
+        pd.DataFrame: Valore cumulativo del portafoglio.
     """
     # Valore cumulativo = S0 * prod(1+r)
     if isinstance(returns, pd.Series):
@@ -220,6 +262,16 @@ def buy_and_hold(returns, S0=100):
 def compare_strategies(cppi_historical_val, bh_historical_val, cppi_mc_vals, bh_mc_vals, rf_daily=0.0):
     """
     Calcola e confronta le metriche tra CPPI e B&H (storico e MC)
+
+    Args:
+        cppi_historical_val (pd.Series): Valore del portafoglio con CPPI (storico).
+        bh_historical_val (pd.Series): Valore del portafoglio con B&H (storico).
+        cppi_mc_vals (np.ndarray): Valori del portafoglio con CPPI (Monte Carlo).
+        bh_mc_vals (np.ndarray): Valori del portafoglio con B&H (Monte Carlo).
+        rf_daily (float): Tasso di interesse risk-free giornaliero.
+
+    Returns:    
+        dict: Dizionario contenente le metriche comparate.
     """
     metrics = {}
     
@@ -240,8 +292,6 @@ def compare_strategies(cppi_historical_val, bh_historical_val, cppi_mc_vals, bh_
     cppi_mc_ret = (cppi_mc_vals[:, -1] / cppi_mc_vals[:, 0]) - 1
     bh_mc_ret = (bh_mc_vals[:, -1] / bh_mc_vals[:, 0]) - 1
     
-    # Strutturiamo il dizionario in modo che pd.DataFrame(metrics).T 
-    # generi un bel dataframe con MultiIndex sulle righe e ['CPPI', 'B&H'] sulle colonne
     metrics = {
         ('Historical', 'Return'): {'CPPI': cppi_hist_ret, 'B&H': bh_hist_ret},
         ('Historical', 'Volatility'): {'CPPI': cppi_hist_vol, 'B&H': bh_hist_vol},
